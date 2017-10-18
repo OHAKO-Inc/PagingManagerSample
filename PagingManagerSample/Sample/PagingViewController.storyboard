@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4Zp-PB-npl">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Paging View Controller-->
+        <scene sceneID="ash-sD-H3g">
+            <objects>
+                <viewController id="4Zp-PB-npl" customClass="PagingViewController" customModule="PagingManagerSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4gX-EN-lN1"/>
+                        <viewControllerLayoutGuide type="bottom" id="kt5-xS-4kv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IRu-Kg-yB5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gh5-qc-ikP">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzN-LW-Iod" customClass="EmptyDataView" customModule="PagingManagerSample" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" red="0.86447660059999998" green="1" blue="0.95209152289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXT-23-o4r" userLabel="load error View" customClass="LoadingErrorView" customModule="PagingManagerSample" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" red="0.4210361661" green="1" blue="0.54219601910000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="sXT-23-o4r" firstAttribute="leading" secondItem="IRu-Kg-yB5" secondAttribute="leading" id="4nF-nA-eba"/>
+                            <constraint firstItem="sXT-23-o4r" firstAttribute="top" secondItem="4gX-EN-lN1" secondAttribute="bottom" id="CCa-91-I0u"/>
+                            <constraint firstItem="gh5-qc-ikP" firstAttribute="top" secondItem="4gX-EN-lN1" secondAttribute="bottom" id="D2u-ax-eN8"/>
+                            <constraint firstItem="kzN-LW-Iod" firstAttribute="leading" secondItem="IRu-Kg-yB5" secondAttribute="leading" id="Ihe-TM-fex"/>
+                            <constraint firstAttribute="trailing" secondItem="sXT-23-o4r" secondAttribute="trailing" id="OeK-fF-wic"/>
+                            <constraint firstAttribute="trailing" secondItem="kzN-LW-Iod" secondAttribute="trailing" id="Rnq-Dd-VzR"/>
+                            <constraint firstItem="kzN-LW-Iod" firstAttribute="top" secondItem="4gX-EN-lN1" secondAttribute="bottom" id="ToI-Sf-zrC"/>
+                            <constraint firstItem="kt5-xS-4kv" firstAttribute="top" secondItem="kzN-LW-Iod" secondAttribute="bottom" id="Yln-aR-XgY"/>
+                            <constraint firstItem="kt5-xS-4kv" firstAttribute="top" secondItem="sXT-23-o4r" secondAttribute="bottom" id="aF7-1f-ORz"/>
+                            <constraint firstItem="kt5-xS-4kv" firstAttribute="top" secondItem="gh5-qc-ikP" secondAttribute="bottom" id="dqV-Sw-hPc"/>
+                            <constraint firstItem="gh5-qc-ikP" firstAttribute="leading" secondItem="IRu-Kg-yB5" secondAttribute="leading" id="fvz-WV-DDv"/>
+                            <constraint firstAttribute="trailing" secondItem="gh5-qc-ikP" secondAttribute="trailing" id="kFt-cq-qs8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="emptyView" destination="kzN-LW-Iod" id="ePk-G4-lyA"/>
+                        <outlet property="loadErrorView" destination="sXT-23-o4r" id="5vO-rg-ndh"/>
+                        <outlet property="tableview" destination="gh5-qc-ikP" id="BCx-yQ-i1a"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xKf-mw-b9C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="39" y="63"/>
+        </scene>
+    </scenes>
+</document>
