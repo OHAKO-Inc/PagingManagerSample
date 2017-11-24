@@ -101,7 +101,7 @@ extension  PagingViewController: UITableViewDataSource {
         }
         return cell
     }
-    // swiftlint:disable:next cyclomatic_complexity
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30.0
     }

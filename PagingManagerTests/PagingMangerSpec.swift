@@ -15,7 +15,8 @@ import Foundation
 @testable import PagingManagerSample
 
 class PagingMangerSpec: QuickSpec {
-    // swiftlint:disable:next cyclomatic_complexity function_body_length
+
+    // swiftlint:disable:next function_body_length
     override func spec() {
 
         var errorflag: Bool = true

@@ -25,8 +25,6 @@ enum UIButtonStyle {
     case withoutLogin
 
     // swiftlint:disable cyclomatic_complexity
-    //swiftlint:disable:next function_body_length
-
     enum RoundedAndPinkType {
         case clinicView
         case reservation
@@ -128,7 +126,6 @@ enum UIButtonStyle {
             button.setTitleColor(UIColor(named: .rosyPink), for: .normal)
         case .showMap:
             button.imageView?.tintColor = UIColor(named: .rosyPink)
-            break
         case .retryButton:
             button.layer.borderWidth = 1.0
             button.layer.borderColor = UIColor(named: .rosyPink).cgColor

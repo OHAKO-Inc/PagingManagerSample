@@ -10,7 +10,6 @@ import UIKit
 
 let darkSlateBlue: UIColor = UIColor(red: 16.0, green: 39.0, blue: 75.0, alpha: 1.0)
 
-// swiftlint:disable type_body_length file_length
 enum UILabelStyle {
 
     enum TitleInCellStyle {
@@ -200,8 +199,6 @@ enum UILabelStyle {
     // MARK: no font size(for attribute labels)
     case multipleLines
 
-    // swiftlint:disable cyclomatic_complexity
-    // swiftlint:disable function_body_length
     func applyTo(label: UILabel) {
         switch self {
         // MARK: font size 11
