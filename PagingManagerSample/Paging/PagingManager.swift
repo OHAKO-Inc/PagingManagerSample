@@ -29,10 +29,6 @@ protocol PagingContollable {
     func fetchNextPageItems()
 }
 
-struct ResponseWithHasNextPage<Item> {
-    let items: [Item]
-    let hasNextPage: Bool
-}
 
 // swiftlint:disable:next generic_type_name
 class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingContollable {
@@ -62,6 +58,7 @@ class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingCont
 
         _loading = _isRefreshing.or(_isFetchingNextPage)
 
+        // refresh items
         refreshItemsPipe.output
             .on { [weak self] _ in
                 self?._isRefreshing.value = true
@@ -94,6 +91,7 @@ class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingCont
                 }
             }
 
+        // next page
         _loading
             .producer
             .sample(on: fetchNextPageItemsPipe.output)
@@ -140,6 +138,7 @@ class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingCont
     }
 }
 
+// MARK: - PagingResultCaching
 extension PagingManager {
     var items: Property<[PagingItem]> {
         return Property(_items)
@@ -147,7 +146,10 @@ extension PagingManager {
     var error: Signal<PagingError<ServiceError>, NoError> {
         return pagingManagerErrorPipe.output
     }
+}
 
+// MARK: - PagingContollable
+extension PagingManager {
     var hasNextPage: Property<Bool> {
         return Property(_hasNextPage)
     }
@@ -166,28 +168,5 @@ extension PagingManager {
     }
     func fetchNextPageItems() {
         fetchNextPageItemsPipe.input.send(value: ())
-    }
-}
-
-enum PagingError<ServiceError: Error>: Error {
-    case service(ServiceError)
-
-    var serviceError: ServiceError {
-        switch self {
-        case .service(let error):
-            return error
-        }
-    }
-}
-
-extension SignalProducer {
-    func resultWrapped() -> SignalProducer<Result<Value, Error>, NoError> {
-        return self
-            .map { value -> Result<Value, Error> in
-                return .success(value)
-            }
-            .flatMapError { error -> SignalProducer<Result<Value, Error>, NoError> in
-                return .init(value: .failure(error))
-        }
     }
 }

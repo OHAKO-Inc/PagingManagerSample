@@ -11,6 +11,9 @@
 		30622B8E1FE287B4008465DD /* LoadingErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30622B8D1FE287B4008465DD /* LoadingErrorView.xib */; };
 		3091C25C1FE36C3700ABCBDB /* LoadingIndicatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3091C25B1FE36C3700ABCBDB /* LoadingIndicatorView.xib */; };
 		3091C25E1FE36DF400ABCBDB /* LoadMoreIndicatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3091C25D1FE36DF400ABCBDB /* LoadMoreIndicatorView.xib */; };
+		3091C2641FE3811500ABCBDB /* PagingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091C2631FE3811500ABCBDB /* PagingError.swift */; };
+		3091C2661FE3849C00ABCBDB /* SignalProducer+resultWrapped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091C2651FE3849C00ABCBDB /* SignalProducer+resultWrapped.swift */; };
+		3091C2681FE384DE00ABCBDB /* ResponseWithHasNextPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3091C2671FE384DE00ABCBDB /* ResponseWithHasNextPage.swift */; };
 		434398121F67C45700995922 /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4343980C1F67C45700995922 /* Prelude.framework */; };
 		434398131F67C45700995922 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4343980D1F67C45700995922 /* ReactiveCocoa.framework */; };
 		434398141F67C45700995922 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4343980E1F67C45700995922 /* ReactiveSwift.framework */; };
@@ -78,6 +81,9 @@
 		30622B8D1FE287B4008465DD /* LoadingErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingErrorView.xib; sourceTree = "<group>"; };
 		3091C25B1FE36C3700ABCBDB /* LoadingIndicatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingIndicatorView.xib; sourceTree = "<group>"; };
 		3091C25D1FE36DF400ABCBDB /* LoadMoreIndicatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadMoreIndicatorView.xib; sourceTree = "<group>"; };
+		3091C2631FE3811500ABCBDB /* PagingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingError.swift; sourceTree = "<group>"; };
+		3091C2651FE3849C00ABCBDB /* SignalProducer+resultWrapped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignalProducer+resultWrapped.swift"; sourceTree = "<group>"; };
+		3091C2671FE384DE00ABCBDB /* ResponseWithHasNextPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseWithHasNextPage.swift; sourceTree = "<group>"; };
 		4343980C1F67C45700995922 /* Prelude.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Prelude.framework; path = Carthage/Build/iOS/Prelude.framework; sourceTree = "<group>"; };
 		4343980D1F67C45700995922 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		4343980E1F67C45700995922 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
@@ -224,6 +230,7 @@
 				43CD6F1E1F70B8AF00303C58 /* Assets.xcassets */,
 				43CD6F1A1F70B89B00303C58 /* AppDelegate.swift */,
 				43CD6F1B1F70B89B00303C58 /* Info.plist */,
+				3091C2651FE3849C00ABCBDB /* SignalProducer+resultWrapped.swift */,
 				43C7AB301F6683E60076D436 /* Sample */,
 				43C7AB1A1F6683D00076D436 /* Paging */,
 				43C7AAF51F6683B60076D436 /* LaunchScreen.storyboard */,
@@ -255,6 +262,8 @@
 			isa = PBXGroup;
 			children = (
 				43CD6F141F70B87B00303C58 /* PagingManager.swift */,
+				3091C2671FE384DE00ABCBDB /* ResponseWithHasNextPage.swift */,
+				3091C2631FE3811500ABCBDB /* PagingError.swift */,
 				43C7AB1B1F6683D00076D436 /* LoadingViews */,
 			);
 			path = Paging;
@@ -477,8 +486,11 @@
 				43CD6F071F70B85800303C58 /* LoadingErrorView.swift in Sources */,
 				43CD6EF21F70B83600303C58 /* PagingSampleViewCell.swift in Sources */,
 				43CD6F091F70B85800303C58 /* LoadingErrorViewModel.swift in Sources */,
+				3091C2641FE3811500ABCBDB /* PagingError.swift in Sources */,
+				3091C2681FE384DE00ABCBDB /* ResponseWithHasNextPage.swift in Sources */,
 				43CD6EF41F70B83600303C58 /* PagingSampleViewCellModel.swift in Sources */,
 				43CD6EF71F70B83600303C58 /* PagingViewModel.swift in Sources */,
+				3091C2661FE3849C00ABCBDB /* SignalProducer+resultWrapped.swift in Sources */,
 				43CD6F0D1F70B85800303C58 /* LoadMoreIndicatorView.swift in Sources */,
 				43CD6F0C1F70B85800303C58 /* LoadingIndicatorViewModel.swift in Sources */,
 				43CD6EF61F70B83600303C58 /* PagingViewController.swift in Sources */,
