@@ -144,6 +144,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3091C25F1FE37F9700ABCBDB /* EmptyDataView */ = {
+			isa = PBXGroup;
+			children = (
+				30622B8B1FE286C4008465DD /* EmptyDataView.xib */,
+				43CD6EF81F70B85800303C58 /* EmptyDataView.swift */,
+				43CD6EFA1F70B85800303C58 /* EmptyDataViewModel.swift */,
+			);
+			path = EmptyDataView;
+			sourceTree = "<group>";
+		};
+		3091C2601FE37FA400ABCBDB /* LoadingErrorView */ = {
+			isa = PBXGroup;
+			children = (
+				30622B8D1FE287B4008465DD /* LoadingErrorView.xib */,
+				43CD6EFB1F70B85800303C58 /* LoadingErrorView.swift */,
+				43CD6EFD1F70B85800303C58 /* LoadingErrorViewModel.swift */,
+			);
+			path = LoadingErrorView;
+			sourceTree = "<group>";
+		};
+		3091C2611FE37FB100ABCBDB /* LoadingIndicatorView */ = {
+			isa = PBXGroup;
+			children = (
+				3091C25B1FE36C3700ABCBDB /* LoadingIndicatorView.xib */,
+				43CD6EFE1F70B85800303C58 /* LoadingIndicatorView.swift */,
+				43CD6F001F70B85800303C58 /* LoadingIndicatorViewModel.swift */,
+			);
+			path = LoadingIndicatorView;
+			sourceTree = "<group>";
+		};
+		3091C2621FE37FBE00ABCBDB /* LoadMoreIndicatorView */ = {
+			isa = PBXGroup;
+			children = (
+				3091C25D1FE36DF400ABCBDB /* LoadMoreIndicatorView.xib */,
+				43CD6F011F70B85800303C58 /* LoadMoreIndicatorView.swift */,
+				43CD6F031F70B85800303C58 /* LoadMoreIndicatorViewModel.swift */,
+			);
+			path = LoadMoreIndicatorView;
+			sourceTree = "<group>";
+		};
 		434398091F67C45500995922 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,18 +263,10 @@
 		43C7AB1B1F6683D00076D436 /* LoadingViews */ = {
 			isa = PBXGroup;
 			children = (
-				43CD6EF81F70B85800303C58 /* EmptyDataView.swift */,
-				30622B8B1FE286C4008465DD /* EmptyDataView.xib */,
-				43CD6EFA1F70B85800303C58 /* EmptyDataViewModel.swift */,
-				43CD6EFB1F70B85800303C58 /* LoadingErrorView.swift */,
-				30622B8D1FE287B4008465DD /* LoadingErrorView.xib */,
-				43CD6EFD1F70B85800303C58 /* LoadingErrorViewModel.swift */,
-				43CD6EFE1F70B85800303C58 /* LoadingIndicatorView.swift */,
-				3091C25B1FE36C3700ABCBDB /* LoadingIndicatorView.xib */,
-				43CD6F001F70B85800303C58 /* LoadingIndicatorViewModel.swift */,
-				43CD6F011F70B85800303C58 /* LoadMoreIndicatorView.swift */,
-				3091C25D1FE36DF400ABCBDB /* LoadMoreIndicatorView.xib */,
-				43CD6F031F70B85800303C58 /* LoadMoreIndicatorViewModel.swift */,
+				3091C25F1FE37F9700ABCBDB /* EmptyDataView */,
+				3091C2601FE37FA400ABCBDB /* LoadingErrorView */,
+				3091C2611FE37FB100ABCBDB /* LoadingIndicatorView */,
+				3091C2621FE37FBE00ABCBDB /* LoadMoreIndicatorView */,
 			);
 			path = LoadingViews;
 			sourceTree = "<group>";
