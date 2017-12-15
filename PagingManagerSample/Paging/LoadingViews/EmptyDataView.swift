@@ -15,6 +15,7 @@ import Result
 final class EmptyDataView: UIView, XibInstantiatable {
 
     private var viewModel: EmptyDataViewModeling?
+
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var noItemMessage: UILabel!
     @IBOutlet weak var retryButton: UIButton!

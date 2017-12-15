@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadMoreIndicatorView" customModule="EparkCure" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadMoreIndicatorView" customModule="PagingManagerSample" customModuleProvider="target">
             <connections>
-                <outlet property="activityIndicator" destination="ErQ-a5-ED4" id="5ng-s8-8gE"/>
+                <outlet property="activityIndicator" destination="zZa-vi-5lL" id="q2P-6I-lFv"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -19,16 +20,19 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ErQ-a5-ED4">
-                    <rect key="frame" x="177" y="50" width="20" height="20"/>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zZa-vi-5lL">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                 </activityIndicatorView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="ErQ-a5-ED4" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="CGU-Eg-J65"/>
-                <constraint firstItem="ErQ-a5-ED4" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Sdc-AA-IbQ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zZa-vi-5lL" secondAttribute="trailing" id="Iox-o6-vIi"/>
+                <constraint firstItem="zZa-vi-5lL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="erI-1Y-69G"/>
+                <constraint firstItem="zZa-vi-5lL" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="jUi-v7-H14"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="zZa-vi-5lL" secondAttribute="bottom" id="m6R-R5-z5x"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
         </view>
     </objects>
 </document>

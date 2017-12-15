@@ -9,6 +9,7 @@
 import UIKit
 
 class PagingSampleViewCell: UITableViewCell {
+
     // MARK: - Properties
     private var cellModel: PagingSampleViewCellModeling?
 
@@ -18,6 +19,5 @@ class PagingSampleViewCell: UITableViewCell {
     func configure(with cellModel: PagingSampleViewCellModeling) {
         self.cellModel = cellModel
         numLabel.text = cellModel.numString
-
     }
 }

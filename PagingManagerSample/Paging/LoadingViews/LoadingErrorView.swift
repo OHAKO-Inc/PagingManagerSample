@@ -15,8 +15,9 @@ import Result
 final class LoadingErrorView: UIView, XibInstantiatable {
 
     private var viewModel: LoadingErrorViewModeling?
-    @IBOutlet weak var retryButton: UIButton!
+
     @IBOutlet weak var errorMessage: UILabel!
+    @IBOutlet weak var retryButton: UIButton!
 
     @IBAction func retryButtonTapped(_ sender: UIButton) {
         viewModel?.retryTappedInput()
