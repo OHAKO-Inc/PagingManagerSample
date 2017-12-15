@@ -17,7 +17,7 @@ final class PagingViewController: UIViewController {
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var emptyView: EmptyDataView!
     @IBOutlet weak var loadErrorView: LoadingErrorView!
-    fileprivate var refreshControl = UIRefreshControl()
+    private var refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,7 @@ final class PagingViewController: UIViewController {
 
 }
 
-fileprivate extension PagingViewController {
+private extension PagingViewController {
     func configureTableView() {
         tableview.registerNibForCellWithType(PagingSampleViewCell.self)
         tableview.reactive.reloadData <~ viewModel.cellModels.map { _ in return () }
@@ -81,7 +81,7 @@ extension PagingViewController {
 
     }
 
-    @objc fileprivate func refresh(sender: UIRefreshControl) {
+    @objc private func refresh(sender: UIRefreshControl) {
         DispatchQueue.main.async { [weak self] in
             self?.viewModel.pullToRefreshTriggered()
         }

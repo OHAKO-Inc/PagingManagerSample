@@ -40,16 +40,16 @@ class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingCont
     typealias PagingItem = Item
     typealias ServiceError = _ServiceError
 
-    fileprivate let _items = MutableProperty<[PagingItem]>([])
-    fileprivate let pagingManagerErrorPipe = Signal<PagingError<ServiceError>, NoError>.pipe()
+    private let _items = MutableProperty<[PagingItem]>([])
+    private let pagingManagerErrorPipe = Signal<PagingError<ServiceError>, NoError>.pipe()
 
-    fileprivate let _hasNextPage = MutableProperty<Bool>(true)
-    fileprivate let _isRefreshing = MutableProperty<Bool>(false)
-    fileprivate let _isFetchingNextPage = MutableProperty<Bool>(false)
-    fileprivate let _loading: Property<Bool> // inner state
+    private let _hasNextPage = MutableProperty<Bool>(true)
+    private let _isRefreshing = MutableProperty<Bool>(false)
+    private let _isFetchingNextPage = MutableProperty<Bool>(false)
+    private let _loading: Property<Bool> // inner state
 
-    fileprivate let refreshItemsPipe = Signal<Void, NoError>.pipe()
-    fileprivate let fetchNextPageItemsPipe = Signal<Void, NoError>.pipe()
+    private let refreshItemsPipe = Signal<Void, NoError>.pipe()
+    private let fetchNextPageItemsPipe = Signal<Void, NoError>.pipe()
 
     private var shouldIgnoreNextPageResult: Bool = false
 

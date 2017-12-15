@@ -32,14 +32,14 @@ final class PagingViewModel {
     let loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling = LoadMoreIndicatorViewModel()
     let emptyDataViewModel: EmptyDataViewModeling
     let loadingErrorViewModel: LoadingErrorViewModeling
-    fileprivate let _isEmptyDataViewHidden = MutableProperty<Bool>(true)
-    fileprivate let _isLoadingErrorViewHidden = MutableProperty<Bool>(true)
-    fileprivate let tableViewReachedAtBottomPipe = Signal<Void, NoError>.pipe()
-    fileprivate let pullToRefreshTriggeredPipe = Signal<Void, NoError>.pipe()
-    fileprivate let viewWillAppearPipe = Signal<Void, NoError>.pipe()
-    fileprivate let refreshControlEndPipe = Signal<Void, NoError>.pipe()
-    fileprivate let _cellModels = MutableProperty<[PagingSampleViewCellModeling]>([])
-    fileprivate let _manager: PagingManager<String, NSError>
+    private let _isEmptyDataViewHidden = MutableProperty<Bool>(true)
+    private let _isLoadingErrorViewHidden = MutableProperty<Bool>(true)
+    private let tableViewReachedAtBottomPipe = Signal<Void, NoError>.pipe()
+    private let pullToRefreshTriggeredPipe = Signal<Void, NoError>.pipe()
+    private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
+    private let refreshControlEndPipe = Signal<Void, NoError>.pipe()
+    private let _cellModels = MutableProperty<[PagingSampleViewCellModeling]>([])
+    private let _manager: PagingManager<String, NSError>
     init(
         manager: PagingManager<String, NSError>,
         emptyDataViewModel: EmptyDataViewModeling,
