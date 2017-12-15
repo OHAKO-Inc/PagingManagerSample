@@ -129,10 +129,10 @@ class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingCont
                 }
                 switch result {
                 case .success(let value):
-                    self?._items.value += value.items
-                    self?._hasNextPage.value = value.hasNextPage
+                    _self._items.value += value.items
+                    _self._hasNextPage.value = value.hasNextPage
                 case .failure(let error):
-                    self?.pagingManagerErrorPipe.input.send(value: .service(error))
+                    _self.pagingManagerErrorPipe.input.send(value: .service(error))
                 }
         }
     }
