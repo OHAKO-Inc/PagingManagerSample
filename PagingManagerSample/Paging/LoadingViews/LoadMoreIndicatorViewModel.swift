@@ -10,17 +10,32 @@ import UIKit
 import ReactiveSwift
 import Result
 
-class LoadMoreIndicatorViewModel {
-
-    let state: MutableProperty<LoadMoreIndicatorState>
-
-    init() {
-        state = MutableProperty<LoadMoreIndicatorState>(.hidden)
-    }
-}
-
 enum LoadMoreIndicatorState {
     case hidden
     case loading
-//    case noMorePage
+    case noMorePage
+}
+
+protocol LoadMoreIndicatorViewModeling {
+    var state: Property<LoadMoreIndicatorState> { get }
+
+    func updateState(to newState: LoadMoreIndicatorState)
+}
+
+final class LoadMoreIndicatorViewModel {
+    private let _state: MutableProperty<LoadMoreIndicatorState>
+
+    init() {
+        _state = MutableProperty<LoadMoreIndicatorState>(.hidden)
+    }
+}
+
+// MARK: LoadMoreIndicatorViewModeling
+extension LoadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling {
+    var state: Property<LoadMoreIndicatorState> {
+        return Property(_state)
+    }
+    func updateState(to newState: LoadMoreIndicatorState) {
+        _state.value = newState
+    }
 }

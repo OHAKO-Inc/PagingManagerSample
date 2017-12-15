@@ -12,8 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmptyDataView" customModule="PagingManagerSample" customModuleProvider="target">
             <connections>
-                <outlet property="iconImage" destination="jM3-Z8-hYu" id="aA4-mN-bnH"/>
-                <outlet property="noItemMessage" destination="5bg-z6-iTT" id="4tm-sR-bkV"/>
+                <outlet property="iconImageView" destination="jM3-Z8-hYu" id="aA4-mN-bnH"/>
+                <outlet property="messageLabel" destination="5bg-z6-iTT" id="4tm-sR-bkV"/>
                 <outlet property="retryButton" destination="pD1-MJ-6GU" id="SXI-3T-Wnu"/>
             </connections>
         </placeholder>

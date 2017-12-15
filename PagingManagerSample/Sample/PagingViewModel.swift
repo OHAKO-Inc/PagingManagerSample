@@ -13,7 +13,7 @@ import Result
 protocol PagingViewModeling {
 
     // view states (view model -> view)
-    var loadMoreIndicatorViewModel: LoadMoreIndicatorViewModel { get }
+    var loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling { get }
     var emptyDataViewModel: EmptyDataViewModeling { get }
     var loadingErrorViewModel: LoadingErrorViewModeling { get }
     var isEmptyDataViewHidden: Property<Bool> { get }
@@ -29,7 +29,7 @@ protocol PagingViewModeling {
 
 final class PagingViewModel {
 
-    let loadMoreIndicatorViewModel = LoadMoreIndicatorViewModel()
+    let loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling = LoadMoreIndicatorViewModel()
     let emptyDataViewModel: EmptyDataViewModeling
     let loadingErrorViewModel: LoadingErrorViewModeling
     fileprivate let _isEmptyDataViewHidden = MutableProperty<Bool>(true)
@@ -80,8 +80,8 @@ final class PagingViewModel {
         manager
             .isFetchingNextPage
             .producer
-            .startWithValues { [weak self] hasNextPage in
-                self?.loadMoreIndicatorViewModel.state.value = hasNextPage ? .loading : .hidden
+            .startWithValues { [weak self] isFetchingNextPage in
+                self?.loadMoreIndicatorViewModel.updateState(to: isFetchingNextPage ? .loading : .hidden)
         }
 
         // load more

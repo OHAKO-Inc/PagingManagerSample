@@ -16,8 +16,8 @@ final class EmptyDataView: UIView, XibInstantiatable {
 
     private var viewModel: EmptyDataViewModeling?
 
-    @IBOutlet weak var iconImage: UIImageView!
-    @IBOutlet weak var noItemMessage: UILabel!
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var retryButton: UIButton!
 
     @IBAction func retryButtonTapped(_ sender: UIButton) {
@@ -40,10 +40,9 @@ final class EmptyDataView: UIView, XibInstantiatable {
     }
 
     private func bind(_ viewModel: EmptyDataViewModeling) {
-//        iconImage.image = viewModel.image
-        noItemMessage.text = viewModel.message
-        iconImage.isHidden = viewModel.isImageHidden
+        iconImageView.image = viewModel.image
+        messageLabel.text = viewModel.message
+        iconImageView.isHidden = viewModel.isImageHidden
         retryButton.isHidden = viewModel.isRetryButtonHidden
     }
-
 }

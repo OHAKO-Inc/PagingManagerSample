@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadMoreIndicatorView" customModule="PagingManagerSample" customModuleProvider="target">
             <connections>
                 <outlet property="activityIndicator" destination="zZa-vi-5lL" id="q2P-6I-lFv"/>
+                <outlet property="noMorePageLabel" destination="t8F-4k-bjW" id="Dkq-g4-2K7"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -23,13 +24,23 @@
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="zZa-vi-5lL">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                 </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;No More Page&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8F-4k-bjW">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zZa-vi-5lL" secondAttribute="trailing" id="Iox-o6-vIi"/>
+                <constraint firstItem="t8F-4k-bjW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Lzb-Lf-3Kd"/>
                 <constraint firstItem="zZa-vi-5lL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="erI-1Y-69G"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="t8F-4k-bjW" secondAttribute="bottom" id="fVG-uJ-b3h"/>
                 <constraint firstItem="zZa-vi-5lL" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="jUi-v7-H14"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="zZa-vi-5lL" secondAttribute="bottom" id="m6R-R5-z5x"/>
+                <constraint firstItem="t8F-4k-bjW" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="mC0-TK-RpC"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="t8F-4k-bjW" secondAttribute="trailing" id="myS-Jo-9Gk"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

@@ -21,8 +21,8 @@ protocol LoadingErrorViewModeling {
 }
 
 final class LoadingErrorViewModel {
-    fileprivate let _errorMessage = MutableProperty<String>("")
-    fileprivate let retryTappedPipe = Signal<Void, NoError>.pipe()
+    private let _errorMessage = MutableProperty<String>("")
+    private let retryTappedPipe = Signal<Void, NoError>.pipe()
 
     init(errorMessage: String) {
         self._errorMessage.value = errorMessage

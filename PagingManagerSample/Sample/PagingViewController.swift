@@ -25,9 +25,10 @@ final class PagingViewController: UIViewController {
         viewModel = PagingViewModel(
             manager: pagingManager,
             emptyDataViewModel: EmptyDataViewModel(
-                message: "Null",
-                isImageHidden: false,
-                isRetryButtonHidden: true
+                image: nil, // TODO: add image
+                message: "Data is Empty",
+                isImageHidden: true,
+                isRetryButtonHidden: false
             ),
             loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "通信エラー"))
         configureTableView()
