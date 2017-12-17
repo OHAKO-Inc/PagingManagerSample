@@ -1,5 +1,5 @@
 //
-//  PagingViewController.swift
+//  SamplePagingViewController.swift
 //  PagingManager
 //
 //  Created by 張穎 on 2017/09/11.
@@ -10,7 +10,7 @@ import UIKit
 import Result
 import ReactiveSwift
 
-final class PagingViewController: UIViewController {
+final class SamplePagingViewController: UIViewController {
     var viewModel: PagingViewModeling!
     var pagingManager: PagingManager<String, NSError>!
 
@@ -21,7 +21,7 @@ final class PagingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        pagingManager = PagingViewController.makeSamplePagingManager()
+        pagingManager = SamplePagingViewController.makeSamplePagingManager()
         viewModel = PagingViewModel(
             manager: pagingManager,
             emptyDataViewModel: EmptyDataViewModel(
@@ -45,7 +45,7 @@ final class PagingViewController: UIViewController {
 
 }
 
-private extension PagingViewController {
+private extension SamplePagingViewController {
     func configureTableView() {
         tableView.registerNibForCellWithType(PagingSampleViewCell.self)
         tableView.reactive.reloadData <~ viewModel.cellModels.map { _ in return () }
@@ -56,12 +56,12 @@ private extension PagingViewController {
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(
             self,
-            action: #selector(PagingViewController.refresh(sender:)),
+            action: #selector(SamplePagingViewController.refresh(sender:)),
             for: .valueChanged)
     }
 }
 
-extension PagingViewController {
+extension SamplePagingViewController {
 
     func bindViewModel() {
 
@@ -90,7 +90,7 @@ extension PagingViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension  PagingViewController: UITableViewDataSource {
+extension SamplePagingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.cellModels.value.count
     }
@@ -109,14 +109,14 @@ extension  PagingViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension PagingViewController: UITableViewDelegate {
+extension SamplePagingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 //        viewModel.cellSelected(at: indexPath.row)
     }
 }
 
-extension PagingViewController: UIScrollViewDelegate {
+extension SamplePagingViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let scrollingSize = tableView.contentOffset.y + tableView.frame.size.height
 
@@ -126,7 +126,7 @@ extension PagingViewController: UIScrollViewDelegate {
     }
 }
 
-extension PagingViewController {
+extension SamplePagingViewController {
     static func makeSamplePagingManager() -> PagingManager<String, NSError> {
         // swiftlint:disable:next line_length
         let responseProducer: (Int) -> SignalProducer<ResponseWithHasNextPage<String>, NSError> = { startIndex -> SignalProducer<ResponseWithHasNextPage<String>, NSError> in

@@ -29,8 +29,8 @@
 		43CD6EF21F70B83600303C58 /* PagingSampleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EEC1F70B83600303C58 /* PagingSampleViewCell.swift */; };
 		43CD6EF31F70B83600303C58 /* PagingSampleViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43CD6EED1F70B83600303C58 /* PagingSampleViewCell.xib */; };
 		43CD6EF41F70B83600303C58 /* PagingSampleViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EEE1F70B83600303C58 /* PagingSampleViewCellModel.swift */; };
-		43CD6EF51F70B83600303C58 /* PagingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43CD6EEF1F70B83600303C58 /* PagingViewController.storyboard */; };
-		43CD6EF61F70B83600303C58 /* PagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EF01F70B83600303C58 /* PagingViewController.swift */; };
+		43CD6EF51F70B83600303C58 /* SamplePagingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43CD6EEF1F70B83600303C58 /* SamplePagingViewController.storyboard */; };
+		43CD6EF61F70B83600303C58 /* SamplePagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EF01F70B83600303C58 /* SamplePagingViewController.swift */; };
 		43CD6EF71F70B83600303C58 /* PagingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EF11F70B83600303C58 /* PagingViewModel.swift */; };
 		43CD6F041F70B85800303C58 /* EmptyDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EF81F70B85800303C58 /* EmptyDataView.swift */; };
 		43CD6F061F70B85800303C58 /* EmptyDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EFA1F70B85800303C58 /* EmptyDataViewModel.swift */; };
@@ -102,8 +102,8 @@
 		43CD6EEC1F70B83600303C58 /* PagingSampleViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingSampleViewCell.swift; path = PagingManagerSample/Sample/PagingSampleViewCell.swift; sourceTree = SOURCE_ROOT; };
 		43CD6EED1F70B83600303C58 /* PagingSampleViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PagingSampleViewCell.xib; path = PagingManagerSample/Sample/PagingSampleViewCell.xib; sourceTree = SOURCE_ROOT; };
 		43CD6EEE1F70B83600303C58 /* PagingSampleViewCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingSampleViewCellModel.swift; path = PagingManagerSample/Sample/PagingSampleViewCellModel.swift; sourceTree = SOURCE_ROOT; };
-		43CD6EEF1F70B83600303C58 /* PagingViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = PagingViewController.storyboard; path = PagingManagerSample/Sample/PagingViewController.storyboard; sourceTree = SOURCE_ROOT; };
-		43CD6EF01F70B83600303C58 /* PagingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingViewController.swift; path = PagingManagerSample/Sample/PagingViewController.swift; sourceTree = SOURCE_ROOT; };
+		43CD6EEF1F70B83600303C58 /* SamplePagingViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SamplePagingViewController.storyboard; path = PagingManagerSample/Sample/SamplePagingViewController.storyboard; sourceTree = SOURCE_ROOT; };
+		43CD6EF01F70B83600303C58 /* SamplePagingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SamplePagingViewController.swift; path = PagingManagerSample/Sample/SamplePagingViewController.swift; sourceTree = SOURCE_ROOT; };
 		43CD6EF11F70B83600303C58 /* PagingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingViewModel.swift; path = PagingManagerSample/Sample/PagingViewModel.swift; sourceTree = SOURCE_ROOT; };
 		43CD6EF81F70B85800303C58 /* EmptyDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyDataView.swift; sourceTree = "<group>"; };
 		43CD6EFA1F70B85800303C58 /* EmptyDataViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyDataViewModel.swift; sourceTree = "<group>"; };
@@ -286,8 +286,8 @@
 				43CD6EEC1F70B83600303C58 /* PagingSampleViewCell.swift */,
 				43CD6EED1F70B83600303C58 /* PagingSampleViewCell.xib */,
 				43CD6EEE1F70B83600303C58 /* PagingSampleViewCellModel.swift */,
-				43CD6EEF1F70B83600303C58 /* PagingViewController.storyboard */,
-				43CD6EF01F70B83600303C58 /* PagingViewController.swift */,
+				43CD6EEF1F70B83600303C58 /* SamplePagingViewController.storyboard */,
+				43CD6EF01F70B83600303C58 /* SamplePagingViewController.swift */,
 				43CD6EF11F70B83600303C58 /* PagingViewModel.swift */,
 			);
 			path = Sample;
@@ -413,7 +413,7 @@
 				3091C25E1FE36DF400ABCBDB /* LoadMoreIndicatorView.xib in Resources */,
 				43CD6EF31F70B83600303C58 /* PagingSampleViewCell.xib in Resources */,
 				43CD6F1F1F70B8AF00303C58 /* Assets.xcassets in Resources */,
-				43CD6EF51F70B83600303C58 /* PagingViewController.storyboard in Resources */,
+				43CD6EF51F70B83600303C58 /* SamplePagingViewController.storyboard in Resources */,
 				30622B8C1FE286C4008465DD /* EmptyDataView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -493,7 +493,7 @@
 				3091C2661FE3849C00ABCBDB /* SignalProducer+resultWrapped.swift in Sources */,
 				43CD6F0D1F70B85800303C58 /* LoadMoreIndicatorView.swift in Sources */,
 				43CD6F0C1F70B85800303C58 /* LoadingIndicatorViewModel.swift in Sources */,
-				43CD6EF61F70B83600303C58 /* PagingViewController.swift in Sources */,
+				43CD6EF61F70B83600303C58 /* SamplePagingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

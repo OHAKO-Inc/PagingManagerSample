@@ -12,7 +12,7 @@
         <!--Paging View Controller-->
         <scene sceneID="ash-sD-H3g">
             <objects>
-                <viewController id="4Zp-PB-npl" customClass="PagingViewController" customModule="PagingManagerSample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4Zp-PB-npl" customClass="SamplePagingViewController" customModule="PagingManagerSample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4gX-EN-lN1"/>
                         <viewControllerLayoutGuide type="bottom" id="kt5-xS-4kv"/>

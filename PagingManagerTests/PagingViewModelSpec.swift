@@ -19,10 +19,11 @@ class PagingViewModelSpec: QuickSpec {
         var pagingManager: PagingManager<String, NSError>!
         var viewModel: PagingViewModeling!
         beforeEach {
-            pagingManager = PagingViewController.makeSamplePagingManager()
+            pagingManager = SamplePagingViewController.makeSamplePagingManager()
             viewModel = PagingViewModel(
                 manager: pagingManager,
                 emptyDataViewModel: EmptyDataViewModel(
+                    image: nil,
                     message: "Null",
                     isImageHidden: false,
                     isRetryButtonHidden: true
