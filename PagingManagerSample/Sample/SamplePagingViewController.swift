@@ -47,7 +47,7 @@ final class SamplePagingViewController: UIViewController {
 
 private extension SamplePagingViewController {
     func configureTableView() {
-        tableView.registerNibForCellWithType(PagingSampleViewCell.self)
+        tableView.registerNibForCellWithType(SampleCell.self)
         tableView.reactive.reloadData <~ viewModel.cellModels.map { _ in return () }
         tableView.tableFooterView = LoadMoreIndicatorView(
             frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 120.0),
@@ -96,7 +96,7 @@ extension SamplePagingViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithType(PagingSampleViewCell.self, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithType(SampleCell.self, forIndexPath: indexPath)
         if indexPath.row < viewModel.cellModels.value.count {
             cell.configure(with: viewModel.cellModels.value[indexPath.row])
         }

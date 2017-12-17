@@ -19,7 +19,7 @@ protocol PagingViewModeling {
     var isEmptyDataViewHidden: Property<Bool> { get }
     var isLoadingErrorViewHidden: Property<Bool> { get }
     var refreshControlEnd: Signal<Void, NoError> { get }
-    var cellModels: Property<[PagingSampleViewCellModeling]> { get }
+    var cellModels: Property<[SampleCellModeling]> { get }
 
     // view -> view model
     func viewWillAppear()
@@ -38,7 +38,7 @@ final class PagingViewModel {
     private let pullToRefreshTriggeredPipe = Signal<Void, NoError>.pipe()
     private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
     private let refreshControlEndPipe = Signal<Void, NoError>.pipe()
-    private let _cellModels = MutableProperty<[PagingSampleViewCellModeling]>([])
+    private let _cellModels = MutableProperty<[SampleCellModeling]>([])
     private let _manager: PagingManager<String, NSError>
     init(
         manager: PagingManager<String, NSError>,
@@ -48,8 +48,8 @@ final class PagingViewModel {
         self.emptyDataViewModel = emptyDataViewModel
         self.loadingErrorViewModel = loadingErrorViewModel
         _manager = manager
-        _cellModels <~ manager.items.producer.map { testValues -> [PagingSampleViewCellModeling] in
-            return testValues.map(PagingSampleViewCellModel.init)
+        _cellModels <~ manager.items.producer.map { testValues -> [SampleCellModeling] in
+            return testValues.map(SampleCellModel.init)
         }
 
         manager.isLoading
@@ -111,7 +111,7 @@ final class PagingViewModel {
 }
 
 extension PagingViewModel: PagingViewModeling {
-    var cellModels: Property<[PagingSampleViewCellModeling]> {
+    var cellModels: Property<[SampleCellModeling]> {
         return Property(_cellModels)
     }
     var isLoadingErrorViewHidden: Property<Bool> {
