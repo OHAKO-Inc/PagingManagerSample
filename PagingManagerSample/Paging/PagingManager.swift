@@ -17,7 +17,7 @@ protocol PagingResultCaching {
     var error: Signal<PagingError<ServiceError>, NoError> { get }
 }
 
-protocol PagingContollable {
+protocol PagingControllable {
     // state
     var hasNextPage: Property<Bool> { get }
     var isRefreshing: Property<Bool> { get }
@@ -29,9 +29,8 @@ protocol PagingContollable {
     func fetchNextPageItems()
 }
 
-
 // swiftlint:disable:next generic_type_name
-class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingContollable {
+class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingControllable {
 
     typealias PagingItem = Item
     typealias ServiceError = _ServiceError
@@ -148,7 +147,7 @@ extension PagingManager {
     }
 }
 
-// MARK: - PagingContollable
+// MARK: - PagingControllable
 extension PagingManager {
     var hasNextPage: Property<Bool> {
         return Property(_hasNextPage)

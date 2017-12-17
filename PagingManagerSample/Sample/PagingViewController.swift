@@ -14,7 +14,7 @@ final class PagingViewController: UIViewController {
     var viewModel: PagingViewModeling!
     var pagingManager: PagingManager<String, NSError>!
 
-    @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: EmptyDataView!
     @IBOutlet weak var loadErrorView: LoadingErrorView!
     private var refreshControl = UIRefreshControl()
@@ -33,8 +33,8 @@ final class PagingViewController: UIViewController {
             loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "通信エラー"))
         configureTableView()
         bindViewModel()
-        tableview.dataSource = self
-        tableview.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
 
     }
 
@@ -47,13 +47,13 @@ final class PagingViewController: UIViewController {
 
 private extension PagingViewController {
     func configureTableView() {
-        tableview.registerNibForCellWithType(PagingSampleViewCell.self)
-        tableview.reactive.reloadData <~ viewModel.cellModels.map { _ in return () }
-        tableview.tableFooterView = LoadMoreIndicatorView(
-            frame: CGRect(x: 0, y: 0, width: tableview.frame.width, height: 120.0),
+        tableView.registerNibForCellWithType(PagingSampleViewCell.self)
+        tableView.reactive.reloadData <~ viewModel.cellModels.map { _ in return () }
+        tableView.tableFooterView = LoadMoreIndicatorView(
+            frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 120.0),
             viewModel: viewModel.loadMoreIndicatorViewModel
         )
-        tableview.refreshControl = refreshControl
+        tableView.refreshControl = refreshControl
         refreshControl.addTarget(
             self,
             action: #selector(PagingViewController.refresh(sender:)),
@@ -118,9 +118,9 @@ extension PagingViewController: UITableViewDelegate {
 
 extension PagingViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let scrollingSize = tableview.contentOffset.y + tableview.frame.size.height
+        let scrollingSize = tableView.contentOffset.y + tableView.frame.size.height
 
-        if  scrollingSize > tableview.contentSize.height && tableview.isDragging {
+        if  scrollingSize > tableView.contentSize.height && tableView.isDragging {
             viewModel.tableViewReachedAtBottom()
         }
     }
