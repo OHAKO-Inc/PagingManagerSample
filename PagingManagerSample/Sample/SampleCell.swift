@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SampleCell: UITableViewCell {
+final class SampleCell: UITableViewCell {
 
     // MARK: - Properties
     private var cellModel: SampleCellModeling?

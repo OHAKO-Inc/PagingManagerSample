@@ -11,57 +11,58 @@ import Result
 import ReactiveSwift
 
 final class SamplePagingViewController: UIViewController {
+
     var viewModel: PagingViewModeling!
-    var pagingManager: PagingManager<String, NSError>!
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var emptyView: EmptyDataView!
-    @IBOutlet weak var loadErrorView: LoadingErrorView!
+    @IBOutlet weak var emptyDataView: EmptyDataView!
+    @IBOutlet weak var loadingErrorView: LoadingErrorView!
     private var refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        pagingManager = SamplePagingViewController.makeSamplePagingManager()
+
+        let pagingManager = SamplePagingViewController.makeSamplePagingManager()
+        let emptyDataViewModel = EmptyDataViewModel(
+            image: nil, // TODO: add image
+            message: "Data is Empty",
+            isImageHidden: true,
+            isRetryButtonHidden: false
+        )
+        let loadingErrorViewModel = LoadingErrorViewModel(errorMessage: "Network error")
+
         viewModel = PagingViewModel(
             manager: pagingManager,
-            emptyDataViewModel: EmptyDataViewModel(
-                image: nil, // TODO: add image
-                message: "Data is Empty",
-                isImageHidden: true,
-                isRetryButtonHidden: false
-            ),
-            loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "通信エラー"))
+            emptyDataViewModel: emptyDataViewModel,
+            loadingErrorViewModel: loadingErrorViewModel
+        )
         configureTableView()
         bindViewModel()
-        tableView.dataSource = self
-        tableView.delegate = self
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
     }
-
 }
 
+// MARK: - Private Methods
 private extension SamplePagingViewController {
     func configureTableView() {
         tableView.registerNibForCellWithType(SampleCell.self)
-        tableView.reactive.reloadData <~ viewModel.cellModels.map { _ in return () }
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(
+            self,
+            action: #selector(refresh(sender:)),
+            for: .valueChanged
+        )
         tableView.tableFooterView = LoadMoreIndicatorView(
             frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 120.0),
             viewModel: viewModel.loadMoreIndicatorViewModel
         )
-        tableView.refreshControl = refreshControl
-        refreshControl.addTarget(
-            self,
-            action: #selector(SamplePagingViewController.refresh(sender:)),
-            for: .valueChanged)
+        tableView.dataSource = self
+        tableView.delegate = self
     }
-}
-
-extension SamplePagingViewController {
 
     func bindViewModel() {
 
@@ -73,19 +74,17 @@ extension SamplePagingViewController {
                 self?.refreshControl.endRefreshing()
         }
 
-        self.emptyView.configure(with: viewModel.emptyDataViewModel)
-        self.emptyView.reactive.isHidden <~ viewModel.isEmptyDataViewHidden.signal
+        emptyDataView.configure(with: viewModel.emptyDataViewModel)
+        emptyDataView.reactive.isHidden <~ viewModel.isEmptyDataViewHidden.signal
 
-        self.loadErrorView.configure(with: viewModel.loadingErrorViewModel)
-        self.loadErrorView.reactive.isHidden <~ viewModel.isLoadingErrorViewHidden
+        loadingErrorView.configure(with: viewModel.loadingErrorViewModel)
+        loadingErrorView.reactive.isHidden <~ viewModel.isLoadingErrorViewHidden
 
+        tableView.reactive.reloadData <~ viewModel.cellModels.map { _ in return () }
     }
 
     @objc private func refresh(sender: UIRefreshControl) {
-        DispatchQueue.main.async { [weak self] in
-            self?.viewModel.pullToRefreshTriggered()
-        }
-
+        viewModel.pullToRefreshTriggered()
     }
 }
 
@@ -102,30 +101,31 @@ extension SamplePagingViewController: UITableViewDataSource {
         }
         return cell
     }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30.0
-    }
 }
 
 // MARK: - UITableViewDelegate
 extension SamplePagingViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 30.0
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 //        viewModel.cellSelected(at: indexPath.row)
     }
 }
 
+// MARK: - UIScrollViewDelegate
 extension SamplePagingViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let scrollingSize = tableView.contentOffset.y + tableView.frame.size.height
 
-        if  scrollingSize > tableView.contentSize.height && tableView.isDragging {
+        if scrollingSize > tableView.contentSize.height && tableView.isDragging {
             viewModel.tableViewReachedAtBottom()
         }
     }
 }
 
+// MARK: - Sample methods
 extension SamplePagingViewController {
     static func makeSamplePagingManager() -> PagingManager<String, NSError> {
         // swiftlint:disable:next line_length

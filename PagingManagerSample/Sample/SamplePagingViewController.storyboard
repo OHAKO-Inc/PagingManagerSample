@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Paging View Controller-->
+        <!--Sample Paging View Controller-->
         <scene sceneID="ash-sD-H3g">
             <objects>
                 <viewController id="4Zp-PB-npl" customClass="SamplePagingViewController" customModule="PagingManagerSample" customModuleProvider="target" sceneMemberID="viewController">
@@ -51,8 +51,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="emptyView" destination="kzN-LW-Iod" id="ePk-G4-lyA"/>
-                        <outlet property="loadErrorView" destination="sXT-23-o4r" id="5vO-rg-ndh"/>
+                        <outlet property="emptyDataView" destination="kzN-LW-Iod" id="pgP-R0-dAI"/>
+                        <outlet property="loadingErrorView" destination="sXT-23-o4r" id="gA8-Nl-0IZ"/>
                         <outlet property="tableView" destination="gh5-qc-ikP" id="lUI-NG-g5Y"/>
                     </connections>
                 </viewController>
