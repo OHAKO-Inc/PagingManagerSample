@@ -1,64 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4Zp-PB-npl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DGU-jU-vp7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Sample Paging View Controller-->
-        <scene sceneID="ash-sD-H3g">
+        <scene sceneID="djY-3V-LGU">
             <objects>
-                <viewController id="4Zp-PB-npl" customClass="SamplePagingViewController" customModule="PagingManagerSample" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="4gX-EN-lN1"/>
-                        <viewControllerLayoutGuide type="bottom" id="kt5-xS-4kv"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="IRu-Kg-yB5">
+                <viewController id="DGU-jU-vp7" customClass="SamplePagingViewController" customModule="PagingManagerSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wsP-pZ-7jf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gh5-qc-ikP">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N1N-ZN-W9n">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzN-LW-Iod" customClass="EmptyDataView" customModule="PagingManagerSample" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0P5-xJ-6zu" customClass="EmptyDataView" customModule="PagingManagerSample" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" red="0.86447660059999998" green="1" blue="0.95209152289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXT-23-o4r" userLabel="load error View" customClass="LoadingErrorView" customModule="PagingManagerSample" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wMK-Os-aZQ" customClass="LoadingErrorView" customModule="PagingManagerSample" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" red="0.4210361661" green="1" blue="0.54219601910000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="sXT-23-o4r" firstAttribute="leading" secondItem="IRu-Kg-yB5" secondAttribute="leading" id="4nF-nA-eba"/>
-                            <constraint firstItem="sXT-23-o4r" firstAttribute="top" secondItem="4gX-EN-lN1" secondAttribute="bottom" id="CCa-91-I0u"/>
-                            <constraint firstItem="gh5-qc-ikP" firstAttribute="top" secondItem="4gX-EN-lN1" secondAttribute="bottom" id="D2u-ax-eN8"/>
-                            <constraint firstItem="kzN-LW-Iod" firstAttribute="leading" secondItem="IRu-Kg-yB5" secondAttribute="leading" id="Ihe-TM-fex"/>
-                            <constraint firstAttribute="trailing" secondItem="sXT-23-o4r" secondAttribute="trailing" id="OeK-fF-wic"/>
-                            <constraint firstAttribute="trailing" secondItem="kzN-LW-Iod" secondAttribute="trailing" id="Rnq-Dd-VzR"/>
-                            <constraint firstItem="kzN-LW-Iod" firstAttribute="top" secondItem="4gX-EN-lN1" secondAttribute="bottom" id="ToI-Sf-zrC"/>
-                            <constraint firstItem="kt5-xS-4kv" firstAttribute="top" secondItem="kzN-LW-Iod" secondAttribute="bottom" id="Yln-aR-XgY"/>
-                            <constraint firstItem="kt5-xS-4kv" firstAttribute="top" secondItem="sXT-23-o4r" secondAttribute="bottom" id="aF7-1f-ORz"/>
-                            <constraint firstItem="kt5-xS-4kv" firstAttribute="top" secondItem="gh5-qc-ikP" secondAttribute="bottom" id="dqV-Sw-hPc"/>
-                            <constraint firstItem="gh5-qc-ikP" firstAttribute="leading" secondItem="IRu-Kg-yB5" secondAttribute="leading" id="fvz-WV-DDv"/>
-                            <constraint firstAttribute="trailing" secondItem="gh5-qc-ikP" secondAttribute="trailing" id="kFt-cq-qs8"/>
+                            <constraint firstItem="ufI-uz-XVB" firstAttribute="bottom" secondItem="N1N-ZN-W9n" secondAttribute="bottom" id="1lJ-qI-jAb"/>
+                            <constraint firstItem="wMK-Os-aZQ" firstAttribute="leading" secondItem="ufI-uz-XVB" secondAttribute="leading" id="37m-yJ-2YZ"/>
+                            <constraint firstItem="ufI-uz-XVB" firstAttribute="trailing" secondItem="wMK-Os-aZQ" secondAttribute="trailing" id="DXV-Z1-Vwr"/>
+                            <constraint firstItem="0P5-xJ-6zu" firstAttribute="leading" secondItem="ufI-uz-XVB" secondAttribute="leading" id="E74-fg-Qta"/>
+                            <constraint firstItem="ufI-uz-XVB" firstAttribute="bottom" secondItem="wMK-Os-aZQ" secondAttribute="bottom" id="JfP-6z-Xfs"/>
+                            <constraint firstItem="ufI-uz-XVB" firstAttribute="bottom" secondItem="0P5-xJ-6zu" secondAttribute="bottom" id="NUp-nE-Ptw"/>
+                            <constraint firstItem="ufI-uz-XVB" firstAttribute="trailing" secondItem="0P5-xJ-6zu" secondAttribute="trailing" id="SLG-bt-ekq"/>
+                            <constraint firstItem="wMK-Os-aZQ" firstAttribute="top" secondItem="ufI-uz-XVB" secondAttribute="top" id="ShO-S5-A9Q"/>
+                            <constraint firstItem="N1N-ZN-W9n" firstAttribute="top" secondItem="ufI-uz-XVB" secondAttribute="top" id="WDR-xv-FNP"/>
+                            <constraint firstItem="N1N-ZN-W9n" firstAttribute="leading" secondItem="ufI-uz-XVB" secondAttribute="leading" id="WN3-eX-4JQ"/>
+                            <constraint firstItem="ufI-uz-XVB" firstAttribute="trailing" secondItem="N1N-ZN-W9n" secondAttribute="trailing" id="qfa-3A-8r7"/>
+                            <constraint firstItem="0P5-xJ-6zu" firstAttribute="top" secondItem="ufI-uz-XVB" secondAttribute="top" id="uXD-6M-Sp6"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="ufI-uz-XVB"/>
                     </view>
                     <connections>
-                        <outlet property="emptyDataView" destination="kzN-LW-Iod" id="pgP-R0-dAI"/>
-                        <outlet property="loadingErrorView" destination="sXT-23-o4r" id="gA8-Nl-0IZ"/>
-                        <outlet property="tableView" destination="gh5-qc-ikP" id="lUI-NG-g5Y"/>
+                        <outlet property="emptyDataView" destination="0P5-xJ-6zu" id="kD3-WH-vCR"/>
+                        <outlet property="loadingErrorView" destination="wMK-Os-aZQ" id="nc4-M7-Km3"/>
+                        <outlet property="tableView" destination="N1N-ZN-W9n" id="Ry6-Y3-1ja"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xKf-mw-b9C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hcR-IB-1bB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="39" y="63"/>
+            <point key="canvasLocation" x="37" y="-306"/>
         </scene>
     </scenes>
 </document>

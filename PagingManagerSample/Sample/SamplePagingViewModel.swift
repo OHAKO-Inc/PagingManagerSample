@@ -122,27 +122,24 @@ final class SamplePagingViewModel {
 }
 
 extension SamplePagingViewModel: SamplePagingViewModeling {
-    var isLoadingErrorViewHidden: Property<Bool> {
-        return Property(_isLoadingErrorViewHidden)
-    }
-
     var isEmptyDataViewHidden: Property<Bool> {
         return Property(_isEmptyDataViewHidden)
+    }
+    var isLoadingErrorViewHidden: Property<Bool> {
+        return Property(_isLoadingErrorViewHidden)
     }
 
     var shouldStopRefreshControl: Signal<Void, NoError> {
         return shouldStopRefreshControlPipe.output
     }
-    func tableViewReachedAtBottom() {
-        tableViewReachedAtBottomPipe.input.send(value: ())
-    }
-
-    func pullToRefreshTriggered() {
-        pullToRefreshTriggeredPipe.input.send(value: ())
-    }
 
     func viewWillAppear() {
         viewWillAppearPipe.input.send(value: ())
     }
-
+    func pullToRefreshTriggered() {
+        pullToRefreshTriggeredPipe.input.send(value: ())
+    }
+    func tableViewReachedAtBottom() {
+        tableViewReachedAtBottomPipe.input.send(value: ())
+    }
 }

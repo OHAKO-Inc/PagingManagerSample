@@ -12,16 +12,9 @@ import ReactiveSwift
 
 final class SamplePagingViewController: UIViewController {
 
-    var viewModel: SamplePagingViewModeling!
-
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var emptyDataView: EmptyDataView!
-    @IBOutlet weak var loadingErrorView: LoadingErrorView!
-    private var refreshControl = UIRefreshControl()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    // MARK: - Properties
+    // In real project, this ViewModel should be injected from outside of the ViewController.
+    lazy var viewModel: SamplePagingViewModeling = {
         let pagingManager = SamplePagingViewController.makeSamplePagingManager()
         let emptyDataViewModel = EmptyDataViewModel(
             image: nil, // TODO: add image
@@ -31,11 +24,22 @@ final class SamplePagingViewController: UIViewController {
         )
         let loadingErrorViewModel = LoadingErrorViewModel(errorMessage: "Network error")
 
-        viewModel = SamplePagingViewModel(
+        return SamplePagingViewModel(
             manager: pagingManager,
             emptyDataViewModel: emptyDataViewModel,
             loadingErrorViewModel: loadingErrorViewModel
         )
+    }()
+
+    // MARK: - View Elements
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var emptyDataView: EmptyDataView!
+    @IBOutlet weak var loadingErrorView: LoadingErrorView!
+    private var refreshControl = UIRefreshControl()
+
+    // MARK: - Lifecycle Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
         configureTableView()
         bindViewModel()
     }
@@ -64,7 +68,18 @@ private extension SamplePagingViewController {
         tableView.delegate = self
     }
 
+    @objc func refresh(sender: UIRefreshControl) {
+        viewModel.pullToRefreshTriggered()
+    }
+
     func bindViewModel() {
+        tableView.reactive.reloadData <~ viewModel.cellModels.map { _ in return () }
+
+        emptyDataView.configure(with: viewModel.emptyDataViewModel)
+        emptyDataView.reactive.isHidden <~ viewModel.isEmptyDataViewHidden.signal
+
+        loadingErrorView.configure(with: viewModel.loadingErrorViewModel)
+        loadingErrorView.reactive.isHidden <~ viewModel.isLoadingErrorViewHidden
 
         viewModel
             .shouldStopRefreshControl
@@ -73,18 +88,6 @@ private extension SamplePagingViewController {
             .observeValues { [weak self] _ in
                 self?.refreshControl.endRefreshing()
         }
-
-        emptyDataView.configure(with: viewModel.emptyDataViewModel)
-        emptyDataView.reactive.isHidden <~ viewModel.isEmptyDataViewHidden.signal
-
-        loadingErrorView.configure(with: viewModel.loadingErrorViewModel)
-        loadingErrorView.reactive.isHidden <~ viewModel.isLoadingErrorViewHidden
-
-        tableView.reactive.reloadData <~ viewModel.cellModels.map { _ in return () }
-    }
-
-    @objc func refresh(sender: UIRefreshControl) {
-        viewModel.pullToRefreshTriggered()
     }
 }
 
@@ -108,9 +111,9 @@ extension SamplePagingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30.0
     }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        viewModel.cellSelected(at: indexPath.row)
     }
 }
 
