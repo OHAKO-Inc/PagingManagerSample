@@ -12,7 +12,7 @@ import ReactiveSwift
 
 final class SamplePagingViewController: UIViewController {
 
-    var viewModel: PagingViewModeling!
+    var viewModel: SamplePagingViewModeling!
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyDataView: EmptyDataView!
@@ -31,7 +31,7 @@ final class SamplePagingViewController: UIViewController {
         )
         let loadingErrorViewModel = LoadingErrorViewModel(errorMessage: "Network error")
 
-        viewModel = PagingViewModel(
+        viewModel = SamplePagingViewModel(
             manager: pagingManager,
             emptyDataViewModel: emptyDataViewModel,
             loadingErrorViewModel: loadingErrorViewModel
@@ -67,7 +67,7 @@ private extension SamplePagingViewController {
     func bindViewModel() {
 
         viewModel
-            .refreshControlEnd
+            .shouldStopRefreshControl
             .signal
             .observe(on: UIScheduler())
             .observeValues { [weak self] _ in
@@ -83,7 +83,7 @@ private extension SamplePagingViewController {
         tableView.reactive.reloadData <~ viewModel.cellModels.map { _ in return () }
     }
 
-    @objc private func refresh(sender: UIRefreshControl) {
+    @objc func refresh(sender: UIRefreshControl) {
         viewModel.pullToRefreshTriggered()
     }
 }

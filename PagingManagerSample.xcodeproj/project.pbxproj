@@ -31,7 +31,7 @@
 		43CD6EF41F70B83600303C58 /* SampleCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EEE1F70B83600303C58 /* SampleCellModel.swift */; };
 		43CD6EF51F70B83600303C58 /* SamplePagingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43CD6EEF1F70B83600303C58 /* SamplePagingViewController.storyboard */; };
 		43CD6EF61F70B83600303C58 /* SamplePagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EF01F70B83600303C58 /* SamplePagingViewController.swift */; };
-		43CD6EF71F70B83600303C58 /* PagingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EF11F70B83600303C58 /* PagingViewModel.swift */; };
+		43CD6EF71F70B83600303C58 /* SamplePagingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EF11F70B83600303C58 /* SamplePagingViewModel.swift */; };
 		43CD6F041F70B85800303C58 /* EmptyDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EF81F70B85800303C58 /* EmptyDataView.swift */; };
 		43CD6F061F70B85800303C58 /* EmptyDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EFA1F70B85800303C58 /* EmptyDataViewModel.swift */; };
 		43CD6F071F70B85800303C58 /* LoadingErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6EFB1F70B85800303C58 /* LoadingErrorView.swift */; };
@@ -104,7 +104,7 @@
 		43CD6EEE1F70B83600303C58 /* SampleCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SampleCellModel.swift; path = PagingManagerSample/Sample/SampleCellModel.swift; sourceTree = SOURCE_ROOT; };
 		43CD6EEF1F70B83600303C58 /* SamplePagingViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SamplePagingViewController.storyboard; path = PagingManagerSample/Sample/SamplePagingViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		43CD6EF01F70B83600303C58 /* SamplePagingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SamplePagingViewController.swift; path = PagingManagerSample/Sample/SamplePagingViewController.swift; sourceTree = SOURCE_ROOT; };
-		43CD6EF11F70B83600303C58 /* PagingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagingViewModel.swift; path = PagingManagerSample/Sample/PagingViewModel.swift; sourceTree = SOURCE_ROOT; };
+		43CD6EF11F70B83600303C58 /* SamplePagingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SamplePagingViewModel.swift; path = PagingManagerSample/Sample/SamplePagingViewModel.swift; sourceTree = SOURCE_ROOT; };
 		43CD6EF81F70B85800303C58 /* EmptyDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyDataView.swift; sourceTree = "<group>"; };
 		43CD6EFA1F70B85800303C58 /* EmptyDataViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyDataViewModel.swift; sourceTree = "<group>"; };
 		43CD6EFB1F70B85800303C58 /* LoadingErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingErrorView.swift; sourceTree = "<group>"; };
@@ -288,7 +288,7 @@
 				43CD6EEE1F70B83600303C58 /* SampleCellModel.swift */,
 				43CD6EEF1F70B83600303C58 /* SamplePagingViewController.storyboard */,
 				43CD6EF01F70B83600303C58 /* SamplePagingViewController.swift */,
-				43CD6EF11F70B83600303C58 /* PagingViewModel.swift */,
+				43CD6EF11F70B83600303C58 /* SamplePagingViewModel.swift */,
 			);
 			path = Sample;
 			sourceTree = "<group>";
@@ -489,7 +489,7 @@
 				3091C2641FE3811500ABCBDB /* PagingError.swift in Sources */,
 				3091C2681FE384DE00ABCBDB /* ResponseWithHasNextPage.swift in Sources */,
 				43CD6EF41F70B83600303C58 /* SampleCellModel.swift in Sources */,
-				43CD6EF71F70B83600303C58 /* PagingViewModel.swift in Sources */,
+				43CD6EF71F70B83600303C58 /* SamplePagingViewModel.swift in Sources */,
 				3091C2661FE3849C00ABCBDB /* SignalProducer+resultWrapped.swift in Sources */,
 				43CD6F0D1F70B85800303C58 /* LoadMoreIndicatorView.swift in Sources */,
 				43CD6F0C1F70B85800303C58 /* LoadingIndicatorViewModel.swift in Sources */,

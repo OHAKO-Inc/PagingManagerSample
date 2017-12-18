@@ -1,5 +1,5 @@
 //
-//  PagingViewModel.swift
+//  SamplePagingViewModel.swift
 //  PagingManager
 //
 //  Created by 張穎 on 2017/09/11.
@@ -10,16 +10,19 @@ import Foundation
 import ReactiveSwift
 import Result
 
-protocol PagingViewModeling {
+protocol SamplePagingViewModeling {
 
     // view states (view model -> view)
-    var loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling { get }
+    var cellModels: Property<[SampleCellModeling]> { get }
+
     var emptyDataViewModel: EmptyDataViewModeling { get }
     var loadingErrorViewModel: LoadingErrorViewModeling { get }
+    var loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling { get }
+
     var isEmptyDataViewHidden: Property<Bool> { get }
     var isLoadingErrorViewHidden: Property<Bool> { get }
-    var refreshControlEnd: Signal<Void, NoError> { get }
-    var cellModels: Property<[SampleCellModeling]> { get }
+
+    var shouldStopRefreshControl: Signal<Void, NoError> { get }
 
     // view -> view model
     func viewWillAppear()
@@ -27,30 +30,41 @@ protocol PagingViewModeling {
     func tableViewReachedAtBottom()
 }
 
-final class PagingViewModel {
+final class SamplePagingViewModel {
 
-    let loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling = LoadMoreIndicatorViewModel()
+    private let _manager: PagingManager<String, NSError>
+
+    let cellModels: Property<[SampleCellModeling]>
+
     let emptyDataViewModel: EmptyDataViewModeling
     let loadingErrorViewModel: LoadingErrorViewModeling
+    let loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling
+
     private let _isEmptyDataViewHidden = MutableProperty<Bool>(true)
     private let _isLoadingErrorViewHidden = MutableProperty<Bool>(true)
-    private let tableViewReachedAtBottomPipe = Signal<Void, NoError>.pipe()
-    private let pullToRefreshTriggeredPipe = Signal<Void, NoError>.pipe()
+
+    private let shouldStopRefreshControlPipe = Signal<Void, NoError>.pipe()
+
     private let viewWillAppearPipe = Signal<Void, NoError>.pipe()
-    private let refreshControlEndPipe = Signal<Void, NoError>.pipe()
-    private let _cellModels = MutableProperty<[SampleCellModeling]>([])
-    private let _manager: PagingManager<String, NSError>
+    private let pullToRefreshTriggeredPipe = Signal<Void, NoError>.pipe()
+    private let tableViewReachedAtBottomPipe = Signal<Void, NoError>.pipe()
+
     init(
         manager: PagingManager<String, NSError>,
         emptyDataViewModel: EmptyDataViewModeling,
-        loadingErrorViewModel: LoadingErrorViewModeling
+        loadingErrorViewModel: LoadingErrorViewModeling,
+        loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling = LoadMoreIndicatorViewModel()
         ) {
+
+        _manager = manager
+
+        cellModels = manager.items.map { items -> [SampleCellModeling] in
+            return items.map(SampleCellModel.init)
+        }
+
         self.emptyDataViewModel = emptyDataViewModel
         self.loadingErrorViewModel = loadingErrorViewModel
-        _manager = manager
-        _cellModels <~ manager.items.producer.map { testValues -> [SampleCellModeling] in
-            return testValues.map(SampleCellModel.init)
-        }
+        self.loadMoreIndicatorViewModel = loadMoreIndicatorViewModel
 
         manager.isLoading
             .signal
@@ -62,11 +76,13 @@ final class PagingViewModel {
         // empty view
         Signal.combineLatest(
             manager.isLoading.signal,
-            _cellModels.signal
+            cellModels.signal
             )
             .observeValues { [weak self] isLoading, cellModels in
                 self?._isEmptyDataViewHidden.value = isLoading ? true : !cellModels.isEmpty
         }
+
+        // TODO: error handling
 
         // refresh control ending
         manager
@@ -74,7 +90,7 @@ final class PagingViewModel {
             .producer
             .filter { !$0 }
             .map { _ in return () }
-            .start(refreshControlEndPipe.input)
+            .start(shouldStopRefreshControlPipe.input)
 
         // load more indicator
         manager
@@ -87,7 +103,7 @@ final class PagingViewModel {
         // load more
         tableViewReachedAtBottomPipe
             .output
-            .observeValues {[weak self] _ in
+            .observeValues { [weak self] _ in
                 self?._manager.fetchNextPageItems()
         }
 
@@ -95,25 +111,17 @@ final class PagingViewModel {
         Signal.merge(
             pullToRefreshTriggeredPipe.output,
             emptyDataViewModel.retryTappedOutput,
-            loadingErrorViewModel.retryTappedOutput
+            loadingErrorViewModel.retryTappedOutput,
+            viewWillAppearPipe.output
             )
-            .observe(on: UIScheduler())
-            .observeValues {[weak self]  _ in
+            .observeValues { [weak self] _ in
                 self?._manager.refreshItems()
         }
-
-        viewWillAppearPipe.output.observeValues {[weak self]  _ in
-           self?._manager.refreshItems()
-        }
-
     }
 
 }
 
-extension PagingViewModel: PagingViewModeling {
-    var cellModels: Property<[SampleCellModeling]> {
-        return Property(_cellModels)
-    }
+extension SamplePagingViewModel: SamplePagingViewModeling {
     var isLoadingErrorViewHidden: Property<Bool> {
         return Property(_isLoadingErrorViewHidden)
     }
@@ -122,8 +130,8 @@ extension PagingViewModel: PagingViewModeling {
         return Property(_isEmptyDataViewHidden)
     }
 
-    var refreshControlEnd: Signal<Void, NoError> {
-        return refreshControlEndPipe.output
+    var shouldStopRefreshControl: Signal<Void, NoError> {
+        return shouldStopRefreshControlPipe.output
     }
     func tableViewReachedAtBottom() {
         tableViewReachedAtBottomPipe.input.send(value: ())

@@ -17,10 +17,10 @@ import Foundation
 class PagingViewModelSpec: QuickSpec {
     override func spec() {
         var pagingManager: PagingManager<String, NSError>!
-        var viewModel: PagingViewModeling!
+        var viewModel: SamplePagingViewModeling!
         beforeEach {
             pagingManager = SamplePagingViewController.makeSamplePagingManager()
-            viewModel = PagingViewModel(
+            viewModel = SamplePagingViewModel(
                 manager: pagingManager,
                 emptyDataViewModel: EmptyDataViewModel(
                     image: nil,
