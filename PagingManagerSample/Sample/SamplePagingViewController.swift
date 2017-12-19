@@ -37,11 +37,27 @@ final class SamplePagingViewController: UIViewController {
     @IBOutlet weak var loadingErrorView: LoadingErrorView!
     private var refreshControl = UIRefreshControl()
 
+    @IBOutlet weak var currentResponseTypeLabel: UILabel!
+    @IBAction func dataTapped(_ sender: Any) {
+        kResponseType = .data
+        currentResponseTypeLabel.text = "Data"
+    }
+    @IBAction func emptyTapped(_ sender: Any) {
+        kResponseType = .empty
+        currentResponseTypeLabel.text = "Empty"
+    }
+    @IBAction func errorTapped(_ sender: Any) {
+        kResponseType = .error
+        currentResponseTypeLabel.text = "Error"
+    }
+
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
         bindViewModel()
+
+        currentResponseTypeLabel.text = "Data"
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -133,16 +149,29 @@ extension SamplePagingViewController {
     static func makeSamplePagingManager() -> PagingManager<String, NSError> {
         // swiftlint:disable:next line_length
         let responseProducer: (Int) -> SignalProducer<ResponseWithHasNextPage<String>, NSError> = { startIndex -> SignalProducer<ResponseWithHasNextPage<String>, NSError> in
-            var responseItems = [String]()
-            for i in 0..<5 {
-                responseItems.append("\(startIndex + i)")
-            }
-            let response = ResponseWithHasNextPage(
-                items: responseItems,
-                hasNextPage: true
-            )
 
-            return SignalProducer(value: response)
+            let responseDataProducer: SignalProducer<ResponseWithHasNextPage<String>, NSError>
+
+            switch kResponseType {
+            case .data:
+                let response = ResponseWithHasNextPage(
+                    items: (0..<5).map { "\(startIndex + $0)" },
+                    hasNextPage: startIndex < 25
+                )
+                responseDataProducer = SignalProducer(value: response)
+
+            case .empty:
+                let response = ResponseWithHasNextPage<String>(
+                    items: [],
+                    hasNextPage: false
+                )
+                responseDataProducer = SignalProducer(value: response)
+
+            case .error:
+                responseDataProducer = SignalProducer(error: NSError())
+            }
+
+            return responseDataProducer
                 .delay(1.0, on: QueueScheduler())
         }
 
@@ -150,3 +179,11 @@ extension SamplePagingViewController {
     }
 
 }
+
+enum ResponseType {
+    case data
+    case empty
+    case error
+}
+
+var kResponseType: ResponseType = .data
