@@ -19,6 +19,7 @@ protocol SamplePagingViewModeling {
     var loadingErrorViewModel: LoadingErrorViewModeling { get }
     var loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling { get }
 
+    // TODO: add refreshing view
     var isEmptyDataViewHidden: Property<Bool> { get }
     var isLoadingErrorViewHidden: Property<Bool> { get }
 
