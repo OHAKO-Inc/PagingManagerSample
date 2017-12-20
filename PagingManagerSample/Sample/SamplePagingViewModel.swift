@@ -66,13 +66,6 @@ final class SamplePagingViewModel {
         self.loadingErrorViewModel = loadingErrorViewModel
         self.loadMoreIndicatorViewModel = loadMoreIndicatorViewModel
 
-        manager.isLoading
-            .signal
-            .filter { $0 }
-            .observeValues { [weak self] _ in
-                self?._isLoadingErrorViewHidden.value = true
-        }
-
         // empty view
         Signal.combineLatest(
             manager.isLoading.signal,
@@ -82,15 +75,19 @@ final class SamplePagingViewModel {
                 self?._isEmptyDataViewHidden.value = isLoading ? true : !cellModels.isEmpty
         }
 
-        // TODO: error handling
+        // error view
+        manager.isLoading
+            .signal
+            .filter { $0 }
+            .observeValues { [weak self] _ in
+                self?._isLoadingErrorViewHidden.value = true
+        }
 
-        // refresh control ending
-        manager
-            .isRefreshing
-            .producer
-            .filter { !$0 }
-            .map { _ in return () }
-            .start(shouldStopRefreshControlPipe.input)
+        manager.error
+            .observeValues { [weak self] error in
+                self?.loadingErrorViewModel.updateErrorMessage(to: error.localizedDescription)
+                self?._isLoadingErrorViewHidden.value = false
+        }
 
         // load more indicator
         manager
@@ -100,14 +97,22 @@ final class SamplePagingViewModel {
                 self?.loadMoreIndicatorViewModel.updateState(to: isFetchingNextPage ? .loading : .hidden)
         }
 
-        // load more
+        // load more action
         tableViewReachedAtBottomPipe
             .output
             .observeValues { [weak self] _ in
                 self?._manager.fetchNextPageItems()
         }
 
-        // reload
+        // refresh control ending
+        manager
+            .isRefreshing
+            .producer
+            .filter { !$0 }
+            .map { _ in return () }
+            .start(shouldStopRefreshControlPipe.input)
+
+        // reload action
         Signal.merge(
             pullToRefreshTriggeredPipe.output,
             emptyDataViewModel.retryTappedOutput,
@@ -117,6 +122,7 @@ final class SamplePagingViewModel {
             .observeValues { [weak self] _ in
                 self?._manager.refreshItems()
         }
+
     }
 
 }

@@ -159,6 +159,7 @@ extension SamplePagingViewController {
                     hasNextPage: startIndex < 25
                 )
                 responseDataProducer = SignalProducer(value: response)
+                    .delay(1.0, on: QueueScheduler())
 
             case .empty:
                 let response = ResponseWithHasNextPage<String>(
@@ -166,13 +167,22 @@ extension SamplePagingViewController {
                     hasNextPage: false
                 )
                 responseDataProducer = SignalProducer(value: response)
+                    .delay(1.0, on: QueueScheduler())
 
             case .error:
-                responseDataProducer = SignalProducer(error: NSError())
+                responseDataProducer = SignalProducer
+                    .timer(interval: .seconds(1), on: QueueScheduler())
+                    .flatMap(.latest) { _ -> SignalProducer<ResponseWithHasNextPage<String>, NSError> in
+                        let error = NSError(
+                            domain: "ohako.PagingManagerSample",
+                            code: 0,
+                            userInfo: [:]
+                        )
+                        return SignalProducer(error: error)
+                }
             }
 
             return responseDataProducer
-                .delay(1.0, on: QueueScheduler())
         }
 
         return PagingManager(responseProducerAtStartIndex: responseProducer)
