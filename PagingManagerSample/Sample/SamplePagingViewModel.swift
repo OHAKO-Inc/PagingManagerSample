@@ -92,11 +92,13 @@ final class SamplePagingViewModel {
         }
 
         // load more indicator
-        manager
-            .isFetchingNextPage
+        Property.combineLatest(manager.isFetchingNextPage, manager.hasNextPage)
             .producer
-            .startWithValues { [weak self] isFetchingNextPage in
-                self?.loadMoreIndicatorViewModel.updateState(to: isFetchingNextPage ? .loading : .hidden)
+            .map { isFetchingNextPage, hasNextPage -> LoadMoreIndicatorState in
+                return isFetchingNextPage ? .loading : (hasNextPage ? .hidden : .noMorePage)
+            }
+            .startWithValues { [weak self] loadMoreState in
+                self?.loadMoreIndicatorViewModel.updateState(to: loadMoreState)
         }
 
         // load more action
