@@ -125,7 +125,7 @@ extension SamplePagingViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension SamplePagingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30.0
+        return 80.0
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -155,8 +155,8 @@ extension SamplePagingViewController {
             switch kResponseType {
             case .data:
                 let response = ResponseWithHasNextPage(
-                    items: (0..<5).map { "\(startIndex + $0)" },
-                    hasNextPage: startIndex < 25
+                    items: (0..<10).map { "\(startIndex + $0)" },
+                    hasNextPage: startIndex < 20
                 )
                 responseDataProducer = SignalProducer(value: response)
                     .delay(1.0, on: QueueScheduler())
