@@ -156,7 +156,7 @@ extension SamplePagingViewController {
             case .data:
                 let response = ResponseWithHasNextPage(
                     items: (0..<10).map { "\(startIndex + $0)" },
-                    hasNextPage: startIndex < 20
+                    hasNextPage: startIndex < 10
                 )
                 responseDataProducer = SignalProducer(value: response)
                     .delay(1.0, on: QueueScheduler())
