@@ -19,8 +19,9 @@ class PagingMangerSpec: QuickSpec {
     // swiftlint:disable:next function_body_length
     override func spec() {
 
-        var errorflag: Bool = true
-        var hasNextflag: Bool = true
+        var networkShouldSucceed: Bool = true
+        var hasNextPageInResponse: Bool = true
+
         var pagingManager: PagingManager<Int, NSError>!
 
         var dataSource: ((Int) -> SignalProducer<ResponseWithHasNextPage<Int>, NSError>)!
@@ -28,14 +29,14 @@ class PagingMangerSpec: QuickSpec {
         beforeEach {
             dataSource = { startIndex -> SignalProducer<ResponseWithHasNextPage<Int>, NSError> in
                 let responseProducer: SignalProducer<ResponseWithHasNextPage<Int>, NSError>
-                if errorflag {
+                if networkShouldSucceed {
                     var responseItems = [Int]()
                     for i in 0..<5 {
                         responseItems.append(startIndex + i)
                     }
                     let response = ResponseWithHasNextPage(
                         items: responseItems,
-                        hasNextPage: hasNextflag
+                        hasNextPage: hasNextPageInResponse
                     )
                     responseProducer = SignalProducer(value: response)
                 } else {
@@ -52,12 +53,11 @@ class PagingMangerSpec: QuickSpec {
             context("network success") {
 
                 beforeEach {
-                    // setting network success
-                    errorflag = true
-                    hasNextflag = true
+                    networkShouldSucceed = true
+                    hasNextPageInResponse = false
                 }
 
-                it("gets data") {
+                it("gets items") {
                     // arrange
                     expect(pagingManager.items.value.count) == 0
 
@@ -68,33 +68,32 @@ class PagingMangerSpec: QuickSpec {
                     expect(pagingManager.items.value.count).toEventually(beGreaterThan(0))
                 }
 
-                it("changes hasNextPage") {
-                    var refreshlist = [Bool]()
+                it("updates hasNextPage") {
                     // arrange
-                    pagingManager.hasNextPage.producer.startWithValues {  refreshlist.append($0) }
+                    var hasNextPageUpdates = [Bool]()
+                    pagingManager.hasNextPage.producer.startWithValues { hasNextPageUpdates.append($0) }
+                    hasNextPageInResponse = false
 
                     // act
                     pagingManager.refreshItems()
 
                     // assert
-                    expect(refreshlist).toEventually(equal([true, true]))
+                    expect(hasNextPageUpdates).toEventually(equal([true, false]))
                 }
 
             }
 
-            context("network failed") {
+            context("network fail") {
 
                 beforeEach {
-                    // set network failure
-                    errorflag = false
-                    hasNextflag = true
+                    networkShouldSucceed = false
                 }
 
                 it("sends error") {
                     // arrange
-                    var errorvalue = [PagingError<NSError>]()
+                    var errors = [PagingError<NSError>]()
                     pagingManager.error.observeValues {
-                        errorvalue.append($0)
+                        errors.append($0)
                     }
 
                     // act
@@ -102,20 +101,20 @@ class PagingMangerSpec: QuickSpec {
 
                     // assert
                     let expectedError = PagingError.service(NSError(domain: "", code: 100, userInfo: nil))
-                    expect(errorvalue).toEventually(equal([expectedError]))
+                    expect(errors).toEventually(equal([expectedError]))
                 }
             }
 
-            it("changes isRefreshing") {
-                var refreshlist = [Bool]()
+            it("updates isRefreshing") {
                 // arrange
-                pagingManager.isRefreshing.producer.startWithValues {  refreshlist.append($0) }
+                var isRefreshingUpdates = [Bool]()
+                pagingManager.isRefreshing.producer.startWithValues { isRefreshingUpdates.append($0) }
 
                 // act
                 pagingManager.refreshItems()
 
                 // assert
-                expect(refreshlist).toEventually(equal([false, true, false]))
+                expect(isRefreshingUpdates).toEventually(equal([false, true, false]))
             }
         }
 
@@ -123,12 +122,12 @@ class PagingMangerSpec: QuickSpec {
             context("network success") {
 
                 beforeEach {
-                    // set network failure
-                    errorflag = true
-                    hasNextflag = true
+                    networkShouldSucceed = true
                 }
 
-                it("populate items") {
+                it("populates items") {
+                    // arrange
+                    hasNextPageInResponse = true
                     pagingManager.refreshItems()
                     pagingManager.items.signal
                         .take(first: 1)
@@ -143,33 +142,40 @@ class PagingMangerSpec: QuickSpec {
                     expect(pagingManager.items.value).toEventually(equal([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]))
                 }
 
-                it("test hasNextPage") {
-                    var refreshlist = [Bool]()
+                it("updates hasNextPage") {
+                    var hasNextPageUpdates = [Bool]()
                     // arrange
-                    pagingManager.hasNextPage.producer.startWithValues {  refreshlist.append($0) }
+                    pagingManager.hasNextPage.producer.startWithValues { hasNextPageUpdates.append($0) }
 
-                    // act
-                    pagingManager.fetchNextPageItems()
+                    hasNextPageInResponse = true
+                    pagingManager.refreshItems()
+                    pagingManager.items.signal
+                        .take(first: 1)
+                        .observeValues { items in
+                            expect(items).to(equal([0, 1, 2, 3, 4]))
+                            hasNextPageInResponse = false
+
+                            // act
+                            pagingManager.fetchNextPageItems()
+                        }
 
                     // assert
-                    expect(refreshlist).toEventually(equal([true, true]))
+                    expect(hasNextPageUpdates).toEventually(equal([true, true, false]))
                 }
 
             }
 
-            context("network failed") {
+            context("network fail") {
 
                 beforeEach {
-                    // set network failure
-                    errorflag = false
-                    hasNextflag = true
+                    networkShouldSucceed = false
                 }
 
                 it("sends error") {
                     // arrange
-                    var errorvalue = [PagingError<NSError>]()
+                    var errors = [PagingError<NSError>]()
                     pagingManager.error.observeValues {
-                        errorvalue.append($0)
+                        errors.append($0)
                     }
 
                     // act
@@ -177,40 +183,21 @@ class PagingMangerSpec: QuickSpec {
 
                     // assert
                     let expectedError = PagingError.service(NSError(domain: "", code: 100, userInfo: nil))
-                    expect(errorvalue).toEventually(equal([expectedError]))
+                    expect(errors).toEventually(equal([expectedError]))
                 }
             }
 
-            context("network success") {
-
-                beforeEach {
-                    // set network failure
-                    errorflag = true
-                    hasNextflag = false
-                }
-                it("test do not hasNextPage") {
-                    var refreshlist = [Bool]()
-                    // arrange
-                    pagingManager.hasNextPage.producer.startWithValues {  refreshlist.append($0) }
-
-                    // act
-                    pagingManager.fetchNextPageItems()
-
-                    // assert
-                    expect(refreshlist).toEventually(equal([true, false]))
-                }
-            }
-
-            it("changes isFetchingNextPage") {
-                var refreshlist = [Bool]()
+            it("updates isFetchingNextPage") {
                 // arrange
-                pagingManager.isFetchingNextPage.producer.startWithValues {  refreshlist.append($0) }
+                var isFetchingNextPageUpdates = [Bool]()
+                hasNextPageInResponse = true
+                pagingManager.isFetchingNextPage.producer.startWithValues { isFetchingNextPageUpdates.append($0) }
 
                 // act
                 pagingManager.fetchNextPageItems()
 
                 // assert
-                expect(refreshlist).toEventually(equal([false, true, false]))
+                expect(isFetchingNextPageUpdates).toEventually(equal([false, true, false]))
             }
         }
 
