@@ -19,7 +19,6 @@
 		434398141F67C45700995922 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4343980E1F67C45700995922 /* ReactiveSwift.framework */; };
 		434398151F67C45700995922 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4343980F1F67C45700995922 /* Result.framework */; };
 		434398211F67C98E00995922 /* PagingMangerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434398201F67C98E00995922 /* PagingMangerSpec.swift */; };
-		434B7E771F720F76003AFB21 /* PagingViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434B7E751F720E98003AFB21 /* PagingViewModelSpec.swift */; };
 		4366D7D51F7CDC39006A00F1 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4366D7D31F7CDC39006A00F1 /* Nimble.framework */; };
 		4366D7D61F7CDC39006A00F1 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4366D7D41F7CDC39006A00F1 /* Quick.framework */; };
 		4366D7D71F7CDCDB006A00F1 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4366D7D41F7CDC39006A00F1 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -89,7 +88,6 @@
 		4343980E1F67C45700995922 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
 		4343980F1F67C45700995922 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		434398201F67C98E00995922 /* PagingMangerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMangerSpec.swift; sourceTree = "<group>"; };
-		434B7E751F720E98003AFB21 /* PagingViewModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewModelSpec.swift; sourceTree = "<group>"; };
 		4366D7D31F7CDC39006A00F1 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		4366D7D41F7CDC39006A00F1 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		43C7AAE91F6683B60076D436 /* PagingManagerSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PagingManagerSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,7 +242,6 @@
 			children = (
 				43C7AB031F6683B60076D436 /* Info.plist */,
 				434398201F67C98E00995922 /* PagingMangerSpec.swift */,
-				434B7E751F720E98003AFB21 /* PagingViewModelSpec.swift */,
 			);
 			path = PagingManagerTests;
 			sourceTree = "<group>";
@@ -509,7 +506,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				434B7E771F720F76003AFB21 /* PagingViewModelSpec.swift in Sources */,
 				434398211F67C98E00995922 /* PagingMangerSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
