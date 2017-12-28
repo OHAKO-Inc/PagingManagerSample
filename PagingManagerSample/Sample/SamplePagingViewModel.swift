@@ -50,6 +50,7 @@ final class SamplePagingViewModel {
     private let pullToRefreshTriggeredPipe = Signal<Void, NoError>.pipe()
     private let tableViewReachedAtBottomPipe = Signal<Void, NoError>.pipe()
 
+    // swiftlint:disable:next function_body_length
     init(
         manager: PagingManager<String, NSError>,
         emptyDataViewModel: EmptyDataViewModeling,
