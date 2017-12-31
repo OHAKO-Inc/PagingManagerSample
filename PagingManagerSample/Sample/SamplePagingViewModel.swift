@@ -17,11 +17,12 @@ protocol SamplePagingViewModeling {
 
     var emptyDataViewModel: EmptyDataViewModeling { get }
     var loadingErrorViewModel: LoadingErrorViewModeling { get }
+    var loadingIndicatorViewModel: LoadingIndicatorViewModeling { get }
     var loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling { get }
 
-    // TODO: add refreshing view
     var isEmptyDataViewHidden: Property<Bool> { get }
     var isLoadingErrorViewHidden: Property<Bool> { get }
+    var isLoadingIndicatorViewHidden: Property<Bool> { get }
 
     var shouldStopRefreshControl: Signal<Void, NoError> { get }
 
@@ -39,10 +40,12 @@ final class SamplePagingViewModel {
 
     let emptyDataViewModel: EmptyDataViewModeling
     let loadingErrorViewModel: LoadingErrorViewModeling
+    let loadingIndicatorViewModel: LoadingIndicatorViewModeling
     let loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling
 
     private let _isEmptyDataViewHidden = MutableProperty<Bool>(true)
     private let _isLoadingErrorViewHidden = MutableProperty<Bool>(true)
+    private let _isLoadingIndicatorViewHidden = MutableProperty<Bool>(true)
 
     private let shouldStopRefreshControlPipe = Signal<Void, NoError>.pipe()
 
@@ -55,7 +58,8 @@ final class SamplePagingViewModel {
         manager: PagingManager<String, NSError>,
         emptyDataViewModel: EmptyDataViewModeling,
         loadingErrorViewModel: LoadingErrorViewModeling,
-        loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling = LoadMoreIndicatorViewModel()
+        loadingIndicatorViewModel: LoadingIndicatorViewModeling,
+        loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling
         ) {
 
         _manager = manager
@@ -66,6 +70,7 @@ final class SamplePagingViewModel {
 
         self.emptyDataViewModel = emptyDataViewModel
         self.loadingErrorViewModel = loadingErrorViewModel
+        self.loadingIndicatorViewModel = loadingIndicatorViewModel
         self.loadMoreIndicatorViewModel = loadMoreIndicatorViewModel
 
         // empty view
@@ -127,6 +132,16 @@ final class SamplePagingViewModel {
                 self?._manager.refreshItems()
         }
 
+        // loading view
+        _isLoadingIndicatorViewHidden <~ SignalProducer.combineLatest(
+            manager.items.producer,
+            manager.isRefreshing.producer
+            )
+            .map { items, isRefreshing -> Bool in
+                return items.isEmpty && isRefreshing
+            }
+            .map { !$0 }
+            .skipRepeats()
     }
 
 }
@@ -137,6 +152,9 @@ extension SamplePagingViewModel: SamplePagingViewModeling {
     }
     var isLoadingErrorViewHidden: Property<Bool> {
         return Property(_isLoadingErrorViewHidden)
+    }
+    var isLoadingIndicatorViewHidden: Property<Bool> {
+        return Property(_isLoadingIndicatorViewHidden)
     }
 
     var shouldStopRefreshControl: Signal<Void, NoError> {
