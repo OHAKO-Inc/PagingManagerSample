@@ -41,6 +41,7 @@
 		43CD6F191F70B87B00303C58 /* PagingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6F141F70B87B00303C58 /* PagingManager.swift */; };
 		43CD6F1C1F70B89B00303C58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CD6F1A1F70B89B00303C58 /* AppDelegate.swift */; };
 		43CD6F1F1F70B8AF00303C58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43CD6F1E1F70B8AF00303C58 /* Assets.xcassets */; };
+		99D99C6DC494E1EA4C700348 /* SamplePagingViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D990C830F1AA255EAEBE80 /* SamplePagingViewModelSpec.swift */; };
 		E36A5AD31FE7F3C200990C15 /* SamplePagingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36A5AD21FE7F3C200990C15 /* SamplePagingViewController.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +115,7 @@
 		43CD6F1A1F70B89B00303C58 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43CD6F1B1F70B89B00303C58 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43CD6F1E1F70B8AF00303C58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		99D990C830F1AA255EAEBE80 /* SamplePagingViewModelSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SamplePagingViewModelSpec.swift; sourceTree = "<group>"; };
 		E36A5AD21FE7F3C200990C15 /* SamplePagingViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SamplePagingViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -242,6 +244,7 @@
 			children = (
 				43C7AB031F6683B60076D436 /* Info.plist */,
 				434398201F67C98E00995922 /* PagingMangerSpec.swift */,
+				99D990C830F1AA255EAEBE80 /* SamplePagingViewModelSpec.swift */,
 			);
 			path = PagingManagerTests;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				434398211F67C98E00995922 /* PagingMangerSpec.swift in Sources */,
+				99D99C6DC494E1EA4C700348 /* SamplePagingViewModelSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,7 +19,7 @@ protocol SamplePagingViewModeling {
     var loadingErrorViewModel: LoadingErrorViewModeling { get }
     var loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling { get }
 
-    // TODO: add refreshing view
+    var isLoadingViewHidden: Property<Bool> { get }
     var isEmptyDataViewHidden: Property<Bool> { get }
     var isLoadingErrorViewHidden: Property<Bool> { get }
 
@@ -41,6 +41,7 @@ final class SamplePagingViewModel {
     let loadingErrorViewModel: LoadingErrorViewModeling
     let loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling
 
+    private let _isLoadingViewHidden = MutableProperty<Bool>(true)
     private let _isEmptyDataViewHidden = MutableProperty<Bool>(true)
     private let _isLoadingErrorViewHidden = MutableProperty<Bool>(true)
 
@@ -127,11 +128,24 @@ final class SamplePagingViewModel {
                 self?._manager.refreshItems()
         }
 
+        // loading view
+        _isLoadingViewHidden <~ SignalProducer.combineLatest(
+            manager.items.producer,
+            manager.isRefreshing.producer
+            )
+            .map { items, isRefreshing -> Bool in
+                return items.isEmpty && isRefreshing
+            }
+            .map { !$0 }
+            .skipRepeats()
     }
 
 }
 
 extension SamplePagingViewModel: SamplePagingViewModeling {
+    var isLoadingViewHidden: Property<Bool> {
+        return Property(_isLoadingViewHidden)
+    }
     var isEmptyDataViewHidden: Property<Bool> {
         return Property(_isEmptyDataViewHidden)
     }
