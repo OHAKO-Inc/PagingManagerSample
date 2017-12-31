@@ -59,7 +59,7 @@ final class SamplePagingViewModel {
         emptyDataViewModel: EmptyDataViewModeling,
         loadingErrorViewModel: LoadingErrorViewModeling,
         loadingIndicatorViewModel: LoadingIndicatorViewModeling,
-        loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling = LoadMoreIndicatorViewModel()
+        loadMoreIndicatorViewModel: LoadMoreIndicatorViewModeling
         ) {
 
         _manager = manager

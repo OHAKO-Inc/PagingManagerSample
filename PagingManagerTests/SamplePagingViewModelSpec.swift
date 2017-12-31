@@ -24,7 +24,8 @@ class SamplePagingViewModelSpec: QuickSpec {
                 manager: pagingManager,
                 emptyDataViewModel: EmptyDataViewModel(image: nil, message: "", isImageHidden: true),
                 loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error"),
-                loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
+                loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading"),
+                loadMoreIndicatorViewModel: LoadMoreIndicatorViewModel()
             )
         }
 

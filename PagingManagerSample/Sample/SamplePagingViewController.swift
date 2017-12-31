@@ -24,12 +24,14 @@ final class SamplePagingViewController: UIViewController {
         )
         let loadingErrorViewModel = LoadingErrorViewModel(errorMessage: "Network error")
         let loadingIndicatorViewModel = LoadingIndicatorViewModel(loadingMessage: "Loading")
+        let loadMoreIndicatorViewModel = LoadMoreIndicatorViewModel()
 
         return SamplePagingViewModel(
             manager: pagingManager,
             emptyDataViewModel: emptyDataViewModel,
             loadingErrorViewModel: loadingErrorViewModel,
-            loadingIndicatorViewModel: loadingIndicatorViewModel
+            loadingIndicatorViewModel: loadingIndicatorViewModel,
+            loadMoreIndicatorViewModel: loadMoreIndicatorViewModel
         )
     }()
 
