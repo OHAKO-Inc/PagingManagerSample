@@ -54,17 +54,24 @@ class SamplePagingViewModelSpec: QuickSpec {
             it("doesn't show loading view") {
                 // arrange
                 var loadingViewHiddenUpdates = [Bool]()
-                viewModel.isLoadingViewHidden
-                    .producer
-                    .startWithValues { isLoadingViewHidden in
-                    loadingViewHiddenUpdates.append(isLoadingViewHidden)
-                }
 
                 // act
-                viewModel.pullToRefreshTriggered()
+                viewModel.cellModels.signal
+                    .filter { !$0.isEmpty }
+                    .take(first: 1)
+                    .delay(1.0, on: QueueScheduler.main)
+                    .observeValues { _ in
+                        viewModel.isLoadingViewHidden
+                            .producer
+                            .startWithValues { isLoadingViewHidden in
+                            loadingViewHiddenUpdates.append(isLoadingViewHidden)
+                        }
+                        viewModel.pullToRefreshTriggered()
+                    }
+                viewModel.viewWillAppear()
 
                 // assert
-                expect(loadingViewHiddenUpdates).to(equal([true]))
+                expect(loadingViewHiddenUpdates).toEventually(equal([true]), timeout: 3.0)
             }
         }
     }
