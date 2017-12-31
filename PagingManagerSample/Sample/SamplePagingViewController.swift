@@ -23,11 +23,13 @@ final class SamplePagingViewController: UIViewController {
             isRetryButtonHidden: false
         )
         let loadingErrorViewModel = LoadingErrorViewModel(errorMessage: "Network error")
+        let loadingIndicatorViewModel = LoadingIndicatorViewModel(loadingMessage: "Loading")
 
         return SamplePagingViewModel(
             manager: pagingManager,
             emptyDataViewModel: emptyDataViewModel,
-            loadingErrorViewModel: loadingErrorViewModel
+            loadingErrorViewModel: loadingErrorViewModel,
+            loadingIndicatorViewModel: loadingIndicatorViewModel
         )
     }()
 
@@ -35,6 +37,7 @@ final class SamplePagingViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyDataView: EmptyDataView!
     @IBOutlet weak var loadingErrorView: LoadingErrorView!
+    @IBOutlet weak var loadingIndicatorView: LoadingIndicatorView!
     private var refreshControl = UIRefreshControl()
 
     @IBOutlet weak var currentResponseTypeLabel: UILabel!
@@ -96,6 +99,9 @@ private extension SamplePagingViewController {
 
         loadingErrorView.configure(with: viewModel.loadingErrorViewModel)
         loadingErrorView.reactive.isHidden <~ viewModel.isLoadingErrorViewHidden
+
+        loadingIndicatorView.configure(with: viewModel.loadingIndicatorViewModel)
+        loadingIndicatorView.reactive.isHidden <~ viewModel.isLoadingIndicatorViewHidden
 
         viewModel
             .shouldStopRefreshControl

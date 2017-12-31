@@ -23,7 +23,8 @@ class SamplePagingViewModelSpec: QuickSpec {
             viewModel = SamplePagingViewModel(
                 manager: pagingManager,
                 emptyDataViewModel: EmptyDataViewModel(image: nil, message: "", isImageHidden: true),
-                loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error")
+                loadingErrorViewModel: LoadingErrorViewModel(errorMessage: "error"),
+                loadingIndicatorViewModel: LoadingIndicatorViewModel(loadingMessage: "loading")
             )
         }
 
@@ -32,7 +33,7 @@ class SamplePagingViewModelSpec: QuickSpec {
                 it("shows loading view") {
                     // arrange
                     var loadingViewHiddenUpdates = [Bool]()
-                    viewModel.isLoadingViewHidden
+                    viewModel.isLoadingIndicatorViewHidden
                         .producer
                         .startWithValues { isLoadingViewHidden in
                         loadingViewHiddenUpdates.append(isLoadingViewHidden)
@@ -61,7 +62,7 @@ class SamplePagingViewModelSpec: QuickSpec {
                     .take(first: 1)
                     .delay(1.0, on: QueueScheduler.main)
                     .observeValues { _ in
-                        viewModel.isLoadingViewHidden
+                        viewModel.isLoadingIndicatorViewHidden
                             .producer
                             .startWithValues { isLoadingViewHidden in
                             loadingViewHiddenUpdates.append(isLoadingViewHidden)
