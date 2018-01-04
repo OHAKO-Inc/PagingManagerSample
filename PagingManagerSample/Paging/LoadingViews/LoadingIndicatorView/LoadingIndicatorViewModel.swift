@@ -8,10 +8,10 @@
 
 import UIKit
 
-protocol LoadingIndicatorViewModelType {
+protocol LoadingIndicatorViewModeling {
     var loadingMessage: String { get }
 }
 
-struct LoadingIndicatorViewModel: LoadingIndicatorViewModelType {
+struct LoadingIndicatorViewModel: LoadingIndicatorViewModeling {
     let loadingMessage: String
 }

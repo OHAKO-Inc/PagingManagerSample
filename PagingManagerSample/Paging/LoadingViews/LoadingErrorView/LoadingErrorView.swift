@@ -1,5 +1,5 @@
 //
-//  EmptyDataView.swift
+//  LoadingErrorView.swift
 //  PagingManagerSample
 //
 //  Created by Yoshikuni Kato on 2016/06/22.
@@ -12,11 +12,11 @@ import ReactiveSwift
 import ReactiveCocoa
 import Result
 
-final class EmptyDataView: UIView, XibInstantiatable {
+final class LoadingErrorView: UIView, XibInstantiatable {
 
-    private var viewModel: EmptyDataViewModeling?
-    @IBOutlet weak var iconImage: UIImageView!
-    @IBOutlet weak var noItemMessage: UILabel!
+    private var viewModel: LoadingErrorViewModeling?
+
+    @IBOutlet weak var errorMessage: UILabel!
     @IBOutlet weak var retryButton: UIButton!
 
     @IBAction func retryButtonTapped(_ sender: UIButton) {
@@ -33,16 +33,12 @@ final class EmptyDataView: UIView, XibInstantiatable {
         instantiate()
     }
 
-    func configure(with viewModel: EmptyDataViewModeling) {
+    func configure(with viewModel: LoadingErrorViewModeling) {
         self.viewModel = viewModel
         bind(viewModel)
     }
 
-    private func bind(_ viewModel: EmptyDataViewModeling) {
-//        iconImage.image = viewModel.image
-        noItemMessage.text = viewModel.message
-        iconImage.isHidden = viewModel.isImageHidden
-        retryButton.isHidden = viewModel.isRetryButtonHidden
+    private func bind(_ viewModel: LoadingErrorViewModeling) {
+        errorMessage.reactive.text <~ viewModel.errorMessage
     }
-
 }

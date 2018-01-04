@@ -10,7 +10,7 @@ import UIKit
 import Prelude
 
 final class LoadingIndicatorView: UIView, XibInstantiatable {
-    private var viewModel: LoadingIndicatorViewModelType?
+    private var viewModel: LoadingIndicatorViewModeling?
     @IBOutlet weak var loadingMessageLabel: UILabel!
 
     override init(frame: CGRect) {
@@ -23,14 +23,13 @@ final class LoadingIndicatorView: UIView, XibInstantiatable {
         instantiate()
     }
 
-    func configure(with viewModel: LoadingIndicatorViewModelType) {
+    func configure(with viewModel: LoadingIndicatorViewModeling) {
         self.viewModel = viewModel
         bind(viewModel)
     }
 
-    private func bind(_ viewModel: LoadingIndicatorViewModelType) {
+    private func bind(_ viewModel: LoadingIndicatorViewModeling) {
         loadingMessageLabel.text = viewModel.loadingMessage
         loadingMessageLabel.isHidden = viewModel.loadingMessage.isEmpty
     }
-
 }

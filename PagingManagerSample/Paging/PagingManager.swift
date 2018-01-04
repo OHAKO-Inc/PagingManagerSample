@@ -17,7 +17,7 @@ protocol PagingResultCaching {
     var error: Signal<PagingError<ServiceError>, NoError> { get }
 }
 
-protocol PagingContollable {
+protocol PagingControllable {
     // state
     var hasNextPage: Property<Bool> { get }
     var isRefreshing: Property<Bool> { get }
@@ -29,27 +29,22 @@ protocol PagingContollable {
     func fetchNextPageItems()
 }
 
-struct ResponseWithHasNextPage<Item> {
-    let items: [Item]
-    let hasNextPage: Bool
-}
-
 // swiftlint:disable:next generic_type_name
-class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingContollable {
+class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingControllable {
 
     typealias PagingItem = Item
     typealias ServiceError = _ServiceError
 
-    fileprivate let _items = MutableProperty<[PagingItem]>([])
-    fileprivate let pagingManagerErrorPipe = Signal<PagingError<ServiceError>, NoError>.pipe()
+    private let _items = MutableProperty<[PagingItem]>([])
+    private let pagingManagerErrorPipe = Signal<PagingError<ServiceError>, NoError>.pipe()
 
-    fileprivate let _hasNextPage = MutableProperty<Bool>(true)
-    fileprivate let _isRefreshing = MutableProperty<Bool>(false)
-    fileprivate let _isFetchingNextPage = MutableProperty<Bool>(false)
-    fileprivate let _loading: Property<Bool> // inner state
+    private let _hasNextPage = MutableProperty<Bool>(true)
+    private let _isRefreshing = MutableProperty<Bool>(false)
+    private let _isFetchingNextPage = MutableProperty<Bool>(false)
+    private let _loading: Property<Bool> // inner state
 
-    fileprivate let refreshItemsPipe = Signal<Void, NoError>.pipe()
-    fileprivate let fetchNextPageItemsPipe = Signal<Void, NoError>.pipe()
+    private let refreshItemsPipe = Signal<Void, NoError>.pipe()
+    private let fetchNextPageItemsPipe = Signal<Void, NoError>.pipe()
 
     private var shouldIgnoreNextPageResult: Bool = false
 
@@ -62,6 +57,7 @@ class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingCont
 
         _loading = _isRefreshing.or(_isFetchingNextPage)
 
+        // refresh items
         refreshItemsPipe.output
             .on { [weak self] _ in
                 self?._isRefreshing.value = true
@@ -94,6 +90,7 @@ class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingCont
                 }
             }
 
+        // next page
         _loading
             .producer
             .sample(on: fetchNextPageItemsPipe.output)
@@ -131,15 +128,16 @@ class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingCont
                 }
                 switch result {
                 case .success(let value):
-                    self?._items.value += value.items
-                    self?._hasNextPage.value = value.hasNextPage
+                    _self._items.value += value.items
+                    _self._hasNextPage.value = value.hasNextPage
                 case .failure(let error):
-                    self?.pagingManagerErrorPipe.input.send(value: .service(error))
+                    _self.pagingManagerErrorPipe.input.send(value: .service(error))
                 }
         }
     }
 }
 
+// MARK: - PagingResultCaching
 extension PagingManager {
     var items: Property<[PagingItem]> {
         return Property(_items)
@@ -147,7 +145,10 @@ extension PagingManager {
     var error: Signal<PagingError<ServiceError>, NoError> {
         return pagingManagerErrorPipe.output
     }
+}
 
+// MARK: - PagingControllable
+extension PagingManager {
     var hasNextPage: Property<Bool> {
         return Property(_hasNextPage)
     }
@@ -166,28 +167,5 @@ extension PagingManager {
     }
     func fetchNextPageItems() {
         fetchNextPageItemsPipe.input.send(value: ())
-    }
-}
-
-enum PagingError<ServiceError: Error>: Error {
-    case service(ServiceError)
-
-    var serviceError: ServiceError {
-        switch self {
-        case .service(let error):
-            return error
-        }
-    }
-}
-
-extension SignalProducer {
-    func resultWrapped() -> SignalProducer<Result<Value, Error>, NoError> {
-        return self
-            .map { value -> Result<Value, Error> in
-                return .success(value)
-            }
-            .flatMapError { error -> SignalProducer<Result<Value, Error>, NoError> in
-                return .init(value: .failure(error))
-        }
     }
 }

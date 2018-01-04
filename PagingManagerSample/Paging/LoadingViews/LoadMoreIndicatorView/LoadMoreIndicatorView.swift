@@ -12,11 +12,11 @@ import Prelude
 final class LoadMoreIndicatorView: UIView, XibInstantiatable {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-//    @IBOutlet weak var noMorePageLabel: UILabel!
+    @IBOutlet weak var noMorePageLabel: UILabel!
 
-    let viewModel: LoadMoreIndicatorViewModel
+    private let viewModel: LoadMoreIndicatorViewModeling
 
-    init(frame: CGRect, viewModel: LoadMoreIndicatorViewModel) {
+    init(frame: CGRect, viewModel: LoadMoreIndicatorViewModeling) {
         self.viewModel = viewModel
         super.init(frame: frame)
 
@@ -28,27 +28,34 @@ final class LoadMoreIndicatorView: UIView, XibInstantiatable {
         fatalError()
     }
 
-    fileprivate func bindViewModel() {
+    private func bindViewModel() {
         viewModel.state
             .producer
-            .startWithValues { [weak self] (state) in
+            .startWithValues { [weak self] state in
                 switch state {
                 case .hidden:
                     DispatchQueue.main.async {
                         self?.activityIndicator.isHidden = true
+                        self?.noMorePageLabel.isHidden = true
                         self?.activityIndicator.stopAnimating()
                     }
 
                 case .loading:
                     DispatchQueue.main.async {
                         self?.activityIndicator.isHidden = false
+                        self?.noMorePageLabel.isHidden = true
                         self?.activityIndicator.startAnimating()
                     }
 
+                case .noMorePage:
+                    DispatchQueue.main.async {
+                        self?.activityIndicator.isHidden = true
+                        self?.noMorePageLabel.isHidden = false
+                        self?.activityIndicator.stopAnimating()
+                    }
                 }
         }
     }
 
     static let height: CGFloat = 94.0
-
 }

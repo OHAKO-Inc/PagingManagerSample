@@ -12,7 +12,8 @@ import ReactiveCocoa
 import Result
 
 protocol EmptyDataViewModeling {
-//    var image: UIImage? { get }
+
+    var image: UIImage? { get }
     var message: String { get }
     var isImageHidden: Bool { get }
     var isRetryButtonHidden: Bool { get }
@@ -23,18 +24,21 @@ protocol EmptyDataViewModeling {
 }
 
 final class EmptyDataViewModel {
-//    let image: UIImage?
+
+    let image: UIImage?
     let message: String
     let isImageHidden: Bool
     let isRetryButtonHidden: Bool
-    fileprivate let retryTappedPipe = Signal<Void, NoError>.pipe()
+
+    private let retryTappedPipe = Signal<Void, NoError>.pipe()
 
     init(
+        image: UIImage?,
         message: String,
         isImageHidden: Bool,
         isRetryButtonHidden: Bool = true
         ) {
-//        self.image = type.image
+        self.image = image
         self.message = message
         self.isImageHidden = isImageHidden
         self.isRetryButtonHidden = isRetryButtonHidden
