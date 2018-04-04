@@ -10,6 +10,7 @@ import UIKit
 
 public protocol ContainerViewShowing {
     func addChildViewController(_ childViewController: UIViewController, to containerView: UIView)
+    func removeChildViewController(_ childViewController: UIViewController)
 }
 
 public extension ContainerViewShowing where Self: UIViewController {
@@ -17,5 +18,11 @@ public extension ContainerViewShowing where Self: UIViewController {
         addChildViewController(childViewController)
         containerView.addFilledSubview(childViewController.view)
         childViewController.didMove(toParentViewController: self)
+    }
+
+    public func removeChildViewController(_ childViewController: UIViewController) {
+        childViewController.willMove(toParentViewController: nil)
+        childViewController.view.removeFromSuperview()
+        childViewController.removeFromParentViewController()
     }
 }

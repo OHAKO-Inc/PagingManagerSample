@@ -31,8 +31,8 @@ class PagingMangerSpec: QuickSpec {
                 let responseProducer: SignalProducer<ResponseWithHasNextPage<Int>, NSError>
                 if networkShouldSucceed {
                     var responseItems = [Int]()
-                    for i in 0..<5 {
-                        responseItems.append(startIndex + i)
+                    for index in 0..<5 {
+                        responseItems.append(startIndex + index)
                     }
                     let response = ResponseWithHasNextPage(
                         items: responseItems,

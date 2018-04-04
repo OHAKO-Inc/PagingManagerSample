@@ -13,7 +13,6 @@ public extension NSMutableAttributedString {
         self.init(string: text)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = lineSpacing
-        //        self.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(location: 0, length: self.length))
         self.addAttributes([
             NSAttributedStringKey.font: font,
             NSAttributedStringKey.paragraphStyle: paragraphStyle
@@ -25,16 +24,32 @@ public extension NSMutableAttributedString {
 public extension NSAttributedString {
     public func boundingRectForUITextView(width: CGFloat) -> CGRect {
         let options = unsafeBitCast(
-            NSStringDrawingOptions.usesLineFragmentOrigin.rawValue /* | NSStringDrawingOptions.UsesFontLeading.rawValue */,
-            to: NSStringDrawingOptions.self)
-        return self.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: options, context: nil)
+            NSStringDrawingOptions.usesLineFragmentOrigin.rawValue /* | NSStringDrawingOptions.UsesFontLeading.rawValue */, // swiftlint:disable:this line_length
+            to: NSStringDrawingOptions.self
+        )
+        return self.boundingRect(
+            with: CGSize(
+                width: width,
+                height: CGFloat.greatestFiniteMagnitude
+            ),
+            options: options,
+            context: nil
+        )
     }
 
     public func boundingRectForUILabel(width: CGFloat) -> CGRect {
         let options = unsafeBitCast(
             NSStringDrawingOptions.usesLineFragmentOrigin.rawValue |
                 NSStringDrawingOptions.truncatesLastVisibleLine.rawValue,
-            to: NSStringDrawingOptions.self)
-        return self.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: options, context: nil)
+            to: NSStringDrawingOptions.self
+        )
+        return self.boundingRect(
+            with: CGSize(
+                width: width,
+                height: CGFloat.greatestFiniteMagnitude
+            ),
+            options: options,
+            context: nil
+        )
     }
 }

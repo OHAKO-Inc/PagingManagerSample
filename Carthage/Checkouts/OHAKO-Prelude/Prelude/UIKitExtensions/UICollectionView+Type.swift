@@ -10,21 +10,21 @@ import UIKit
 
 public extension UICollectionView {
     public func registerNibForCellWithType<T: UICollectionViewCell>(_ type: T.Type) {
-        let className = String(describing: T.self)
-        let nib = UINib(nibName: className, bundle: nil)
+        let className = String(describing: type)
+        let nib = UINib(nibName: className, bundle: Bundle(for: type))
         register(nib, forCellWithReuseIdentifier: className)
     }
 
     public func registerClassForCellWithType<T: UICollectionViewCell>(_ type: T.Type) {
-        let className = String(describing: T.self)
-        register(T.self, forCellWithReuseIdentifier: className)
+        let className = String(describing: type)
+        register(type, forCellWithReuseIdentifier: className)
     }
 
     public func dequeueReusableCellWithType<T: UICollectionViewCell>(
         _ type: T.Type,
         forIndexPath indexPath: IndexPath) -> T {
         return dequeueReusableCell(
-            withReuseIdentifier: String(describing: T.self),
+            withReuseIdentifier: String(describing: type),
             for: indexPath) as! T // swiftlint:disable:this force_cast
     }
 }

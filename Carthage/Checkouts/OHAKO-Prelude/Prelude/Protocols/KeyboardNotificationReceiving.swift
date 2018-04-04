@@ -24,7 +24,7 @@ public extension KeyboardNotificationReceiving {
         keyboardWillMove(notification, show: false)
     }
 
-    private func handleKeyboardNotification(_ notification: Notification) -> (keyboardRect: CGRect, duration: TimeInterval, curve: NSNumber)? {
+    private func handleKeyboardNotification(_ notification: Notification) -> KeyboardAnimateParams? {
         guard let userInfo = notification.userInfo,
             let keyboardRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
             let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval,
@@ -32,7 +32,11 @@ public extension KeyboardNotificationReceiving {
             else {
                 return nil
         }
-        return (keyboardRect, duration, curve)
+        return KeyboardAnimateParams(
+            keyboardRect: keyboardRect,
+            duration: duration,
+            curve: curve
+        )
     }
 
     private func keyboardWillMove(_ notification: Notification, show: Bool) {
@@ -49,4 +53,10 @@ public extension KeyboardNotificationReceiving {
             completion: nil
         )
     }
+}
+
+struct KeyboardAnimateParams {
+    let keyboardRect: CGRect
+    let duration: TimeInterval
+    let curve: NSNumber
 }

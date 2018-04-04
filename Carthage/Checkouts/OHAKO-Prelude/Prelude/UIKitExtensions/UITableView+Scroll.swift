@@ -14,7 +14,7 @@ public extension UITableView {
         guard numberOfSections > 0 && numberOfRows(inSection: numberOfSections - 1) > 0 else {
             return
         }
-        let indexPath = IndexPath(row:  numberOfRows(inSection: numberOfSections - 1)-1, section: numberOfSections - 1)
+        let indexPath = IndexPath(row: numberOfRows(inSection: numberOfSections - 1)-1, section: numberOfSections - 1)
         self.scrollToRow(at: indexPath, at: .bottom, animated: animated)
     }
 }
