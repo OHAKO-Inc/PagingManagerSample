@@ -61,11 +61,11 @@ class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingCont
         refreshItemsPipe.output
             .on { [weak self] _ in
                 self?._isRefreshing.value = true
-                guard let strongSelf = self else {
+                guard let self = self else {
                     return
                 }
-                if strongSelf.isFetchingNextPage.value {
-                    strongSelf.shouldIgnoreNextPageResult = true
+                if self.isFetchingNextPage.value {
+                    self.shouldIgnoreNextPageResult = true
                 }
             }
             .flatMap(.latest) { [weak self] _
@@ -98,10 +98,10 @@ class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingCont
                 return !loading
             }
             .filter { [weak self] _ -> Bool in
-                guard let strongSelf = self else {
+                guard let self = self else {
                     return false
                 }
-                return strongSelf.hasNextPage.value
+                return self.hasNextPage.value
             }
             .on { [weak self] _ in
                 self?._isFetchingNextPage.value = true
@@ -109,29 +109,29 @@ class PagingManager<Item, _ServiceError: Error>: PagingResultCaching, PagingCont
             .flatMap(.latest) { [weak self] _
                 -> SignalProducer<Result<ResponseWithHasNextPage<PagingItem>, ServiceError>, NoError> in
 
-                guard let strongSelf = self else {
+                guard let self = self else {
                     return .empty
                 }
-                return responseProducerAtStartIndex(strongSelf.items.value.count)
+                return responseProducerAtStartIndex(self.items.value.count)
                     .resultWrapped()
             }
             .on { [weak self] _ in
                 self?._isFetchingNextPage.value = false
             }
             .startWithValues { [weak self] result in
-                guard let strongSelf = self else {
+                guard let self = self else {
                     return
                 }
-                if strongSelf.shouldIgnoreNextPageResult {
-                    strongSelf.shouldIgnoreNextPageResult = false
+                if self.shouldIgnoreNextPageResult {
+                    self.shouldIgnoreNextPageResult = false
                     return
                 }
                 switch result {
                 case .success(let value):
-                    strongSelf._items.value += value.items
-                    strongSelf._hasNextPage.value = value.hasNextPage
+                    self._items.value += value.items
+                    self._hasNextPage.value = value.hasNextPage
                 case .failure(let error):
-                    strongSelf.pagingManagerErrorPipe.input.send(value: .service(error))
+                    self.pagingManagerErrorPipe.input.send(value: .service(error))
                 }
         }
     }
